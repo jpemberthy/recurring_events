@@ -47,8 +47,9 @@ describe "English Parser" do
   end
 
   it "should recognize complete phrases" do
-    event = EventParser.parse('Mr. Fakedude needs a 30 minutes visit every monday for medical support')
+    event = EventParser.parse('Mr. Fakedude needs a 30 minutes visit every monday morning for medical support')
 
+    event.hour.should == '7:00'
     event.day.should == :monday
     event.recurrency.should == :every_week
     event.length.should == "30"
