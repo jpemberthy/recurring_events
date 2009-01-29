@@ -1,9 +1,15 @@
 class EventParser
+  attr_accessor :text
+
   def initialize(text)
+    @text = text
   end
 
   def self.parse(text)
-    self.new(text)
+    self.new(text).parse
+  end
+
+  def parse
   end
 
   def subject
@@ -29,5 +35,9 @@ class EventParser
   end
 
   def event_type
+  end
+
+  def downcase
+    
   end
 end
