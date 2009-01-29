@@ -49,6 +49,7 @@ class EventParser
     downcase
     numerize
     replace_daytimes
+    strip_punctuation
   end
 
   # Remove capital letters from the input text.
@@ -69,6 +70,14 @@ class EventParser
     @text.gsub!(/\bnoon/, '12:00')
     @text.gsub!(/\bafternoon/, '14:00')
     @text.gsub!(/\bnight/, '20:00')
+  end
+
+  # Remove the punctuation in the original text.
+  def strip_punctuation #:nodoc:
+    # insert a whitespace if there's not one between the symbol and the
+    # next character
+    @text.gsub!(/[.,;']([ ])?/, $1 || ' ')   
+    @text.rstrip!
   end
   
   # Try to guess the language used in the text. Defaults to english.

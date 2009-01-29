@@ -28,4 +28,9 @@ describe "Parser" do
     EventParser.new("morning noon").text.should == '7:00 12:00'
     EventParser.new("afternoon night").text.should == '14:00 20:00'
   end
+
+  it 'should strip punctuation' do
+    e = EventParser.new('Some,stuff. with; punctuation and that\' kind of stuff.')
+    e.text.should == 'some stuff with punctuation and that kind of stuff'
+  end
 end
