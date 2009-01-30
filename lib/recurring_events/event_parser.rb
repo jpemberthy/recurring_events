@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class EventParser
-  attr_accessor :text
-  attr_accessor :language
+  attr_reader :text
+  attr_reader :language
 
   def initialize(text)
     @text = text
@@ -14,32 +14,9 @@ class EventParser
   end
 
   def parse
+    
   end
 
-  def subject
-  end
-
-  def hour
-  end
-
-  def day
-  end
-  alias_method :days, :day
-
-  def month
-  end
-
-  def year
-  end
-
-  def length
-  end
-
-  def recurrency
-  end
-
-  def event_type
-  end
 
   protected
 
