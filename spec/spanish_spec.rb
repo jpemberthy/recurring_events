@@ -19,11 +19,11 @@ describe "English Parser" do
 
   it "should recognize recurrencies" do
     event = EventParser.parse('El Sr. Falso debe ser visitado todos los días en la mañana')
-    event.days.should == :all
+    event.day.should == :all
     event.hour.should == '07:00'
     
     event = EventParser.parse('El Sr. Falso necesita una sopa de pollo todos los días a la hora del almuerzo')
-    event.days.should == :all
+    event.day.should == :all
     event.hour.should == '12:00'
 
     event = EventParser.parse('El Sr. Falso necesita una visita para jugar bingo los jueves en la noche cada dos semanas')
@@ -41,10 +41,10 @@ describe "English Parser" do
 
   it "should recognize different event types" do
     event = EventParser.parse('El Sr. Falso necesita una visita de 30 minutes los lunes para darle ayuda medica')
-    event.event_type.should == "ayuda medica"
+    event.type.should == "ayuda medica"
 
     event = EventParser.parse('El Sr. Falso necesita una sopa de pollo todos los días en la tarde.')
-    event.event_type.should == "sopa de pollo"
+    event.type.should == "sopa de pollo"
   end
 
   it "should recognize complete phrases" do
@@ -55,7 +55,7 @@ describe "English Parser" do
     event.recurrency.should == :every_week
     event.length.should == "30"
     event.subject.should == 'Mr. Fakedude'
-    event.event_type.should == 'medical support'
+    event.type.should == 'medical support'
     event.month.should == :all
     event.year.should == :all
   end

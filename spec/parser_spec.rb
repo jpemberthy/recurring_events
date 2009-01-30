@@ -2,6 +2,12 @@
 require File.dirname(__FILE__) + "/spec_helper"
 
 describe "Parser" do
+  it 'has a class method for parsing text' do
+    EventParser.new('foo').parse.should == EventParser.parse('foo')
+  end
+end
+
+describe "Text Normalizer" do
   it 'should recognize the correct language' do
     EventParser.new('this is an english text...').language.should == :english
     EventParser.new('esto es español...').language.should == :spanish

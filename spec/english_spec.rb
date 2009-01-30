@@ -2,15 +2,15 @@ require File.dirname(__FILE__) + "/spec_helper"
 
 describe "English Parser" do
   it "should recognize dates" do
-    event = EventParser.parse('Mr. Fakedude needs a 30-minute visit on Mondays at 10:00 A.M.')
+    event = EventParser.parse('Mr. Fakedude needs a 30-minute visit on Monday 25th at 10:00 A.M.')
 
-    event.day.should == :monday
+    event.day.should == 25
     event.month.should == Time.now.month
     event.year.should == Time.now.year
     event.hour.should == '10:00'
 
-    event = EventParser.parse('Mr. Fakedude needs a 30 minutes visit on tuesday morning for medical support.')
-    event.day.should == :tuesday
+    event = EventParser.parse('Mr. Fakedude needs a 30 minutes visit on tuesday 26th morning for medical support.')
+    event.day.should == 26
     event.month.should == Time.now.month
     event.year.should == Time.now.year
     event.hour.should == '07:00'
@@ -18,11 +18,11 @@ describe "English Parser" do
 
   it "should recognize recurrencies" do
     event = EventParser.parse('Mr. Fakedude should be visited every day in the morning.')
-    event.days.should == :all
+    event.day.should == :all
     event.hour.should == '07:00'
     
     event = EventParser.parse('Mr. Fakedude needs a chicken soup every day at lunch.')
-    event.days.should == :all
+    event.day.should == :all
     event.hour.should == '12:00'
 
     event = EventParser.parse('Mr. Fakedude needs a visit to play bingo on tuesday night every 2 weeks.')
