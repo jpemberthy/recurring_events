@@ -5,8 +5,6 @@ require 'recurring_events/event_parser'
 require 'recurring_events/numerizer'
 
 require 'treetop'
-require 'recurring_events/parser/parser_english'
-Treetop.load File.dirname(__FILE__) + "/recurring_events/parser/parser_english"
-#require 'recurring_events/parser/parser_english_definitions'
-
-
+require 'recurring_events/parsers/english/parser_english'
+Treetop.load File.dirname(__FILE__) + "/recurring_events/parsers/english/time_english"
+Treetop.load File.dirname(__FILE__) + "/recurring_events/parsers/english/parser_english"
