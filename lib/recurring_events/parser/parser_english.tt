@@ -11,32 +11,56 @@ grammar RecurringEvents
     ([A-Z] [a-z]+ ' '*)+
   end
 
-  rule abbreviation
-    ('Mr' / 'Mrs') period?
-  end
-
   rule predicate
-    verb ' ' object ' ' predicative ' ' adverbial period?
+    verb_group ' ' event ' ' time_separator ' ' time period?
   end
 
-  rule verb
-  'foo'
+  rule verb_group
+    verb / auxiliary ' ' past_verb 
   end  
+   
+  rule verb
+    'need' 's'?
+  end
+
+  rule auxiliary
+    'should be' / 'must be' / 'has to'
+  end
+
+  rule past_verb
+    'visited' / lowercase_word+
+  end
+
+  rule event
+    'a visit' / lowercase_word (' ' lowercase_word)*
+  end
   
-  rule object
-  'foo'
+  # TODO Add recurrency
+  rule time
+    day / hour / time_word
   end
 
-  rule predicative
-  'foo'
+  rule day
+    'monday' / 'tuesday' / 'wednesday' / 'thursday' / 'friday' / 'saturday' / 'sunday'
   end
 
-  rule adverbial
-  'foo'
+  rule hour
+    [0-9] [0-9]? ':' [0-9] [0-9] (' '? ('am'/'pm'))?
+  end
+
+  rule time_separator
+    'at' / 'on'
+  end
+
+  rule abbreviation
+    ('mr' / 'mrs') period?
+  end
+
+  rule lowercase_word
+    [a-z]
   end
 
   rule period
     '\.'
   end  
-  
 end
