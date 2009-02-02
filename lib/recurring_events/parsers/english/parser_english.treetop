@@ -1,4 +1,6 @@
 grammar RecurringEvents
+  include TimeEnglish
+
   rule phrase
     subject ' ' predicate 
     <PhraseNode>
@@ -37,31 +39,6 @@ grammar RecurringEvents
   rule event
     'a visit' / lowercase_word
     <EventNode>
-  end
-  
-  # TODO Add recurrency
-  rule time
-    day ' ' time_separator ' ' time / 
-    hour / 
-    time_word
-    <TimeNode>
-  end
-
-  rule time_word
-    'morning' / 'evening' / 'noon' / 'afternoon'
-  end
-
-  rule day
-    'monday' / 'tuesday' / 'wednesday' / 'thursday' / 'friday' / 'saturday' / 'sunday'
-  end
-
-  rule hour
-    [0-9] [0-9]? ':' [0-9] [0-9] (' '? ('am'/'pm'))? /
-    [0-9]
-  end
-
-  rule time_separator
-    'at' / 'on' / 'this'
   end
 
   rule abbreviation
