@@ -6,7 +6,7 @@ end
 
 class PredicateNode < Treetop::Runtime::SyntaxNode
   def value
-  event.value.merge(time.value)
+    event.value.merge(time.value)
   end
 end
 
@@ -16,13 +16,13 @@ class SubjectNode < Treetop::Runtime::SyntaxNode
   end
 end
 
-class TimeNode < Treetop::Runtime::SyntaxNode
+module TimeNode
   def value
     { :time => text_value }
   end
 end
 
-class EventNode < Treetop::Runtime::SyntaxNode
+module EventNode
   def value
     { :event => text_value }
   end

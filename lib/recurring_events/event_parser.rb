@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
 class EventParser
   attr_reader :text
   attr_reader :language
@@ -18,18 +16,19 @@ class EventParser
 
   def parse
     @parser = RecurringEventsParser.new
-    @parser.parse(@text)
-  end
-
-  def failure_reason
-    @parser.failure_reason
+    result = @parser.parse(@text).value
+    
+    subject = result[:subject]
+    event = result[:event]
+    date = validate_date(result[:time])
+    result
   end
 
   protected
 
   # Replaces capital letters, word numbers, daytime words, ordinal words and
   # other unwanted characters in the input text string.
-  def normalize_text #:nodoc:
+  def normalize_text            # :nodoc:
     downcase
     numerize
     replace_daytimes
@@ -37,19 +36,19 @@ class EventParser
   end
 
   # Remove capital letters from the input text.
-  def downcase #:nodoc:
+  def downcase                  # :nodoc:
     @text.downcase!
   end
 
   # Replace number words with real numbers!™.
   # TODO Generalize for other languages
-  def numerize #:nodoc:
+  def numerize                  # :nodoc:
     @text = Numerizer.numerize(@text)
   end
 
   # Replace times of the day with predefined hours.
   # TODO Generalize for other languages
-  def replace_daytimes #:nodoc:
+  def replace_daytimes          # :nodoc:
     @text.gsub!(/\bmorning/, '7:00')
     @text.gsub!(/\bnoon/, '12:00')
     @text.gsub!(/\bafternoon/, '14:00')
@@ -57,7 +56,7 @@ class EventParser
   end
 
   # Remove the punctuation in the original text.
-  def strip_punctuation #:nodoc:
+  def strip_punctuation         # :nodoc:
     # insert a whitespace if there's not one between the symbol and the
     # next character
     @text.gsub!(/[.,;']([ ])?/, $1 || ' ')   
@@ -65,7 +64,7 @@ class EventParser
   end
   
   # Try to guess the language used in the text. Defaults to english.
-  def guess_language  #:nodoc:
+  def guess_language            # :nodoc:
     @language = :english
 
     languages = { 
@@ -76,5 +75,11 @@ class EventParser
     languages.each do |lang, regex| 
       @language = lang if regex.match(@text)
     end
+  end
+
+  # Make sure we got a valid date (at least a day and an hour).
+  # TODO add validation
+  def validate_date(date)          # :nodoc
+    date
   end
 end

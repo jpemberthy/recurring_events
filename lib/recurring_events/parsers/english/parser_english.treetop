@@ -37,7 +37,7 @@ grammar RecurringEvents
   end
 
   rule event
-    'a visit' / lowercase_word
+    ('a visit' / lowercase_word)
     <EventNode>
   end
 
