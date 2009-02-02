@@ -4,8 +4,10 @@ class Event
 
   attr_reader :date
 
-  def initialize(date)
+  def initialize(subject, event_type, date)
     @date = date
+    @subject = subject
+    @type = event_type
   end
 
   # Returns the subject of the event.
@@ -16,7 +18,7 @@ class Event
   # @return [String] The subject of the event or an empty string if no subject
   # was found.
   def subject
-    ""
+    @subject                    # TODO prettify output
   end
 
   # Returns the hour of the event in a 24-hour format.
@@ -70,6 +72,6 @@ class Event
   #     event.type    => "visit"
   # @return [String] Type of the event.
   def type
-    ""
+    @type                       # TODO validate against known types and print.
   end
 end

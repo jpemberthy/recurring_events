@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + "/spec_helper"
 describe "Event" do
   before :all do
     @date = DateTime.civil(2112, 11, 13, 10, 58, 46)
-    @event = Event.new(@date)
+    @event = Event.new("", "", @date)
   end
 
   it 'should return the hour of the event' do

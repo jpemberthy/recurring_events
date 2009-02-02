@@ -21,7 +21,7 @@ class EventParser
     subject = result[:subject]
     event = result[:event]
     date = validate_date(result[:time])
-    result
+    Event.new(subject, event, date)
   end
 
   protected
