@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require 'treetop'
-require File.dirname(__FILE__) + '/parser/parser_english'
+
 
 class EventParser
   attr_reader :text
   attr_reader :language
+  attr_reader :parser
 
   def initialize(text)
     @text = text
@@ -17,10 +17,13 @@ class EventParser
   end
 
   def parse
-    p = RecurringEventsParser.new
-    p.parse(text)
+    @parser = RecurringEventsParser.new
+    @parser.parse(@text)
   end
 
+  def failure_reason
+    @parser.failure_reason
+  end
 
   protected
 

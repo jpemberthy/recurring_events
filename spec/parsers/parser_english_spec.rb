@@ -6,7 +6,9 @@ describe 'English Parser' do
   end
 
   it "should recognize simple sentences with hour" do
-    @parser.parse('Mr. Fakedude needs care this saturday at 3 PM.').should_not be_nil
+    p = EventParser.new('mr test house')
+    ret = p.parse
+    ret.should_not be_nil
   end
 
   it 'should recognize sentences with week days and a time' do
