@@ -37,7 +37,9 @@ grammar RecurringEvents
   
   # TODO Add recurrency
   rule time
-    day / hour / time_word
+    day ' ' time_separator ' ' time / 
+    hour / 
+    time_word
   end
 
   rule day
@@ -45,11 +47,12 @@ grammar RecurringEvents
   end
 
   rule hour
-    [0-9] [0-9]? ':' [0-9] [0-9] (' '? ('am'/'pm'))?
+    [0-9] [0-9]? ':' [0-9] [0-9] (' '? ('am'/'pm'))? /
+    [0-9]
   end
 
   rule time_separator
-    'at' / 'on'
+    'at' / 'on' / 'this'
   end
 
   rule abbreviation

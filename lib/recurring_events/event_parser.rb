@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+require 'treetop'
+require File.dirname(__FILE__) + '/parser/parser_english'
+
 class EventParser
   attr_reader :text
   attr_reader :language
@@ -14,7 +17,8 @@ class EventParser
   end
 
   def parse
-    
+    p = RecurringEventsParser.new
+    p.parse(text)
   end
 
 
