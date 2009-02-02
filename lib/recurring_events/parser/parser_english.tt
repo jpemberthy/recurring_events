@@ -1,0 +1,42 @@
+grammar RecurringEvents
+  rule noun_phrase
+    subject ' ' predicate
+  end
+
+  rule subject
+    (abbreviation ' ')? noun
+  end
+
+  rule noun
+    ([A-Z] [a-z]+ ' '*)+
+  end
+
+  rule abbreviation
+    ('Mr' / 'Mrs') period?
+  end
+
+  rule predicate
+    verb ' ' object ' ' predicative ' ' adverbial period?
+  end
+
+  rule verb
+  'foo'
+  end  
+  
+  rule object
+  'foo'
+  end
+
+  rule predicative
+  'foo'
+  end
+
+  rule adverbial
+  'foo'
+  end
+
+  rule period
+    '\.'
+  end  
+  
+end
