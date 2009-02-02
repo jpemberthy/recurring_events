@@ -1,18 +1,21 @@
 grammar RecurringEvents
-  rule noun_phrase
-    subject ' ' predicate
+  rule phrase
+    subject ' ' predicate 
+    <PhraseNode>
   end
 
   rule subject
-    (abbreviation ' ')? noun
+    (abbreviation ' ')? noun 
+    <SubjectNode>
   end
 
   rule noun
-    ([A-Z] [a-z]+ ' '*)+
+    lowercase_word
   end
 
   rule predicate
-    verb_group ' ' event ' ' time_separator ' ' time period?
+    verb_group ' ' event ' ' time_separator ' ' time
+    <PredicateNode>
   end
 
   rule verb_group
@@ -28,11 +31,12 @@ grammar RecurringEvents
   end
 
   rule past_verb
-    'visited' / lowercase_word+
+    'visited' / lowercase_word
   end
 
   rule event
-    'a visit' / lowercase_word (' ' lowercase_word)*
+    'a visit' / lowercase_word
+    <EventNode>
   end
   
   # TODO Add recurrency
@@ -40,6 +44,11 @@ grammar RecurringEvents
     day ' ' time_separator ' ' time / 
     hour / 
     time_word
+    <TimeNode>
+  end
+
+  rule time_word
+    'morning' / 'evening' / 'noon' / 'afternoon'
   end
 
   rule day
@@ -56,11 +65,11 @@ grammar RecurringEvents
   end
 
   rule abbreviation
-    ('mr' / 'mrs') period?
+    ('mr' / 'mrs')
   end
 
   rule lowercase_word
-    [a-z]
+    [a-z]+
   end
 
   rule period
