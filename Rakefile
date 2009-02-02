@@ -1,6 +1,5 @@
 require 'rake'
 require 'spec/rake/spectask'
-require 'rubygems'
 require 'yard'
 require 'yard/rake/yardoc_task'
 
