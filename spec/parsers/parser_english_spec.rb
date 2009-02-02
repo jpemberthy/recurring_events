@@ -6,7 +6,7 @@ describe 'English Parser' do
   end
 
   it "should recognize simple sentences with hour" do
-    p = EventParser.new('mr test house')
+    p = EventParser.new('mr test needs a visit at 3:00pm')
     ret = p.parse
     ret.should_not be_nil
   end
