@@ -1,13 +1,21 @@
 require 'date'
 
 class Event
-
-  attr_reader :date
-
-  def initialize(subject, event_type, date)
-    @date = date
+  # Creates a new event.
+  # 
+  # @param [String] subject The person or organization involved with the
+  # event. 
+  # @param [String] event_type Type of event. A string description works.
+  # @param [DateTime] starting_date Starting date of the event. Expects a
+  # DateTime. 
+  # @param [DateTime] end_date (optional) End time of the event. Expects a
+  # DateTime. Defaults to start_date + 1 hour.
+  def initialize(subject, event_type, start_date, end_date=nil)
+    @start_date = start_date
     @subject = subject
     @type = event_type
+
+    @end_date = @start_date + 1.hour if @end_date.nil?
   end
 
   # Returns the subject of the event.
@@ -26,28 +34,28 @@ class Event
   #     another_event.hour    # => "07:08"
   # @return [String] The hour of the event.
   def hour
-    @date.strftime('%H:%M')
+    @start_date.strftime('%H:%M')
   end
 
   # Returns the day of the event.
   #     event.day    # => 31
   # @return [Fixnum] Day of the event.
   def day
-    @date.day
+    @start_date.day
   end
 
   # Returns the month of the event.
   #     event.month    # => 6
   # @return [Fixnum] Month of the event.
   def month
-    @date.month
+    @start_date.month
   end
 
   # Returns the year of the event.
   #     event.year    # => 2112
   # @return [Fixnum] Year of the event.
   def year
-    @date.year
+    @start_date.year
   end
 
   # Returns the length of the event. 
@@ -61,7 +69,7 @@ class Event
   # Returns the date of the event.
   # @return [DateTime] Date of the event
   def date
-    @date
+    @start_date
   end
 
   # Returns the type of the event.
