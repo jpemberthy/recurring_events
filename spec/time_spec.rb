@@ -6,9 +6,9 @@ describe 'Time patches' do
     @another_date = DateTime.new(2009, 2, 1, 16, 0, 23)
   end
 
-  it 'should allow substraction of DateTime with DateTime' do
+  it 'should allow substraction of DateTime with DateTime and return the difference of minutes' do
     ret = @another_date - @date
-    ret.should == 11          # minutes
+    ret.should == 11
   end
 
   it 'should allow substraction of DateTime with Hours' do
@@ -31,7 +31,7 @@ describe 'Time patches' do
   end
 
   it 'should not allow sum of DateTime with DateTime' do
-    lambda { 
+    lambda {
       @date + @another_date
     }.should raise_error
   end
