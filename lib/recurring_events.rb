@@ -24,7 +24,7 @@ end
 # Add alias the old method to substract/add and replace the #+/#- with our
 # own implementation.
 # TODO clean up the code a bit.
-class DateTime
+class DateTime                  # :nodoc:
     def -(x) 
        case x
          when Hours; return DateTime.new(year, month, day, hour - x.value, min, sec)
