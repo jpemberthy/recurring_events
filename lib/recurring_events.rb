@@ -1,4 +1,4 @@
-$:.unshift File.dirname(__FILE__)    
+$:.unshift File.dirname(__FILE__)
 
 require 'recurring_events/event'
 require 'recurring_events/event_parser'
@@ -25,22 +25,23 @@ end
 # own implementation.
 # TODO clean up the code a bit.
 class DateTime                  # :nodoc:
-    def -(x) 
-       case x
-         when Hours; return DateTime.new(year, month, day, hour - x.value, min, sec)
-         else;       return (self.to_time - x.to_time).to_i / 60 # use minutes
-       end
-    end
 
-   def +(x) 
-     return DateTime.new(year, month, day, hour + x.value, min, sec)
-   end
+  # Substract a DateTime or a number of hours from self.
+  def -(x)
+    case x
+      when Hours; return DateTime.new(year, month, day, hour - x.value, min, sec)
+      else;       return (self.to_time - x.to_time).to_i / 60 # use minutes
+    end
+  end
+
+  def +(x) 
+    return DateTime.new(year, month, day, hour + x.value, min, sec)
+  end
 
   # converts a DateTime to a Time object.
   def to_time
     usec = (sec_fraction * 60 * 60 * 24 * (10**6)).to_i
-    Time.send(:local, year, month, day, hour, min,
-              sec, usec)
+    Time.send(:local, year, month, day, hour, min, sec, usec)
   end
 end
 
