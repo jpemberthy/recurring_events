@@ -4,18 +4,20 @@ class Event
   # Creates a new event.
   # 
   # @param [String] subject The person or organization involved with the
-  # event. 
-  # @param [String] event_type Type of event. A string description works.
+  # event. Defaults to an empty string.
+  # @param [String] event_type Type of event. A string description
+  # works. Defaults to an empty string.
   # @param [DateTime] starting_date Starting date of the event. Expects a
   # DateTime. 
   # @param [DateTime] end_date (optional) End time of the event. Expects a
   # DateTime. Defaults to start_date + 1 hour.
-  def initialize(subject, event_type, start_date, end_date=nil)
+  def initialize(subject='', event_type='', start_date=nil, end_date=nil)
     @start_date = start_date
     @subject = subject
     @type = event_type
+    @end_date = end_date
 
-    @end_date = @start_date + 1.hour if @end_date.nil?
+    @end_date = @start_date + 1.hour if end_date.nil?
   end
 
   # Returns the subject of the event.
@@ -63,7 +65,7 @@ class Event
   #     event.length    # => 38
   # @return [Fixnum] Length of the event in minutes. Defaults to 60 minutes.
   def length
-    60
+    @end_date - @start_date
   end
 
   # Returns the date of the event.

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + "/spec_helper"
 
 describe "Event" do
   before :all do
-    @date = DateTime.civil(2112, 11, 13, 10, 58, 46)
+    @date = DateTime.civil(2012, 11, 13, 10, 58, 46)
     @event = Event.new("", "", @date)
   end
 
@@ -19,19 +19,22 @@ describe "Event" do
   end
 
   it 'should return the year of the event' do
-    @event.year.should == 2112
+    @event.year.should == 2012
   end
 
   it 'should return the date of the event' do
     @event.date.should == @date
   end
 
-  it 'should return the length of the event' do
-    @event.length.should be_kind_of(Fixnum)
-  end
-
   it 'should default length to 60 minutes' do
     @event.length.should == 60
+  end
+
+  it 'should return the correct length' do
+    e = Event.new('', '', 
+                 DateTime.civil(2012, 11, 13, 10, 58, 46),
+                 DateTime.civil(2012, 11, 13, 11, 13, 46))
+    e.length.should == 15
   end
 
   it 'should return the type of the event' do
