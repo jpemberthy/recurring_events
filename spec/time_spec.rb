@@ -6,7 +6,7 @@ describe 'Time patches' do
     @another_date = DateTime.new(2009, 2, 1, 16, 0, 23)
   end
 
-  it 'should allow substraction of DateTime with DateTime and return the difference of minutes' do
+  it 'should allow substraction of DateTime with DateTime and return the difference in minutes' do
     ret = @another_date - @date
     ret.should == 11
   end
