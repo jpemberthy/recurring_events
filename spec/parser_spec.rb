@@ -39,4 +39,19 @@ describe "Text Normalizer" do
     e = EventParser.new('Some,stuff. with; punctuation and that\' kind of stuff.')
     e.text.should == 'some stuff with punctuation and that kind of stuff'
   end
+  
+  it 'should be able to change the language if it exists' do
+    e = EventParser.new('This is a test')
+    e.language.should == :english
+    e.language = :spanish
+    e.language.should == :spanish
+  end
+
+  it 'should raise an error if it receives an unknown language' do
+    e = EventParser.new('This is a test')
+    lambda { 
+      e.language = :swahili
+    }.should raise_error ParserError
+    e.language.should == :english
+  end
 end

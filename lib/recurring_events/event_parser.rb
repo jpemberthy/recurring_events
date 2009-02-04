@@ -4,17 +4,35 @@ class EventParser
   attr_reader :language
   attr_reader :parser
 
-  def initialize(text)
+  def initialize(text=nil)
     @text = text
     guess_language
     normalize_text
   end
 
+  # Class method to invocate the parser.
+  # 
+  # Equivalent to:                  
+  #     EventParser.new('text').parse
   def self.parse(text)
     self.new(text).parse
   end
 
-  def parse
+  # Parse the text and return a new Event.
+  # 
+  # Parses the text (given in the constructor or in +text+) and returns the
+  # Event that was created from it. If no language is recognized then it 
+  # will default the language to english. You can override this by
+  # calling #language= with a symbol before the actual parsing is done, see
+  # EventParser#language.
+  # 
+  # @param [String] text (optional) If +text+ is not nil then it will replace
+  # the original text given in the initialize method.
+  # @raise [ParserError] The parser was not able to correctly parse the
+  # document. See error text for more information.
+  def parse(text=nil)
+    @text = text if !text.nil?
+
     @parser = RecurringEventsParser.new
     parsed_text = @parser.parse(@text)
     raise ParserError.new("Error parsing the event: parsed_text nil") if parsed_text.nil?
@@ -24,6 +42,29 @@ class EventParser
     event = result[:event]
     date = parse_date(result[:time])
     Event.new(subject, event, date)
+  end
+
+  # Sets the parser language.
+  # 
+  # Set the language to be used when parsing the document. I should be smart
+  # enough to recognize the language you're using, but if you're running into
+  # ParserErrors then you can use this method to manually set the language by
+  # passing a symbol for your language:
+  # 
+  #     EventParser.new('hola').language = :spanish
+  #     EventParser.new('bye').language = :english
+  # 
+  # @param [Symbol] language The language to be used by the parser.
+  # @raise [ParserError] The given language was not recognized
+  def language=(language)
+    supported_languages = Dir.chdir(File.dirname(__FILE__) + '/parsers') { Dir['*'] }
+    supported_languages.collect!{ |lang| lang.to_sym }
+
+    if supported_languages.include?(language)
+      @language = language.to_sym
+    else      
+      raise ParserError.new("Language #{language} is not supported")
+    end
   end
 
   protected
