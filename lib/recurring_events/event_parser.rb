@@ -16,11 +16,13 @@ class EventParser
 
   def parse
     @parser = RecurringEventsParser.new
-    result = @parser.parse(@text).value
-    
+    parsed_text = @parser.parse(@text)
+    raise ParserError.new("Error parsing the event: parsed_text nil") if parsed_text.nil?
+
+    result = parsed_text.value
     subject = result[:subject]
     event = result[:event]
-    date = validate_date(result[:time])
+    date = parse_date(result[:time])
     Event.new(subject, event, date)
   end
 
@@ -79,7 +81,9 @@ class EventParser
 
   # Make sure we got a valid date (at least a day and an hour).
   # TODO add validation
-  def validate_date(date)          # :nodoc
-    date
+  def parse_date(date)          # :nodoc
+    Chronic.parse date
   end
 end
+
+class ParserError < StandardError; end
