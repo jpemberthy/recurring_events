@@ -51,7 +51,7 @@ describe "Text Normalizer" do
     e = EventParser.new('This is a test')
     lambda { 
       e.language = :swahili
-    }.should raise_error ParserError
+    }.should raise_error(ParserError)
     e.language.should == :english
   end
 end
