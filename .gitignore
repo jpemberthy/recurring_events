@@ -1,3 +1,4 @@
 phrases
 .yardoc
 doc/
+.DS_Store/
