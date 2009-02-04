@@ -29,7 +29,8 @@ end
 # TODO clean up the code a bit.
 class DateTime                  # :nodoc:
 
-  # Substract a DateTime or a number of hours from self.
+  # Return the difference in minutes between between two DateTimes or between
+  # DateTime and Hours.
   def -(x)
     case x
       when Hours; return DateTime.new(year, month, day, hour - x.value, min, sec)
@@ -37,22 +38,20 @@ class DateTime                  # :nodoc:
     end
   end
 
+  # Adds x minutes to self.
   def +(x) 
     return DateTime.new(year, month, day, hour + x.value, min, sec)
   end
 
-  # converts a DateTime to a Time object.
+  # Converts  self to a Time object.
   def to_time
     usec = (sec_fraction * 60 * 60 * 24 * (10**6)).to_i
     Time.send(:local, year, month, day, hour, min, sec, usec)
   end
 end
 
-# We also need an to_datetime method to convert Chronic Times to usable
-# DateTimes.
-class Time                      # :nodoc:
-
-  # Converts a Time to a DateTime object.
+class Time
+  # Converts self to a DateTime object.
   def to_datetime
     seconds = sec + Rational(usec, 10**6)
     offset = Rational(utc_offset, 60 * 60 * 24)
@@ -60,9 +59,9 @@ class Time                      # :nodoc:
   end
 end
 
-# Finally add the new method to Fixnum. This allows us to do something like:
-#     DateTime.new + 5.hours
-class Fixnum                  # :nodoc:
+class Fixnum
+  # Syntactic sugar for doing something like:
+  #     DateTime.new + 5.hours
    def hours
      Hours.new(self)
    end
