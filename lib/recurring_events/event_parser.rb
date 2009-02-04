@@ -82,7 +82,7 @@ class EventParser
   # Make sure we got a valid date (at least a day and an hour).
   # TODO add validation
   def parse_date(date)          # :nodoc
-    Chronic.parse date
+    Chronic.parse(date)
   end
 end
 

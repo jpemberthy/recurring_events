@@ -17,6 +17,10 @@ class Event
     @type = event_type
     @end_date = end_date
 
+    # Call #to_datetime in case we get Time objects.
+    @start_date = @start_date.to_datetime if @start_date.respond_to?(:to_datetime)
+    @end_date = @end_date.to_datetime if @end_date.respond_to?(:to_datetime)
+
     @end_date = @start_date + 1.hour if end_date.nil?
   end
 

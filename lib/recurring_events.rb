@@ -2,18 +2,23 @@ $:.unshift File.dirname(__FILE__)
 
 require 'recurring_events/event'
 require 'recurring_events/event_parser'
-require 'recurring_events/numerizer'
+#require 'recurring_events/numerizer'
+
+require 'chronic'
 
 require 'treetop'
 require 'recurring_events/parsers/english/parser_english'
 Treetop.load File.dirname(__FILE__) + "/recurring_events/parsers/english/time_english"
 Treetop.load File.dirname(__FILE__) + "/recurring_events/parsers/english/parser_english"
 
-require 'date'
- 
+# Custom Methods
+
 # We'll add some syntactic sugar to the DateTime class. Make sure we use a
 # new class (Hours) instead of Fixnum so the old behavior of DateTime#- and DateTime#+ still
-# works.
+# works. The code used for conversions is taken from the Ruby Cookbook.
+
+# First we'll need a helper class to represent hours. This doesn't really do
+# anything besides preventing the monkey patch to Fixnum.
 class Hours                     # :nodoc:
    attr_reader :value
    def initialize(value)
@@ -21,8 +26,7 @@ class Hours                     # :nodoc:
    end
 end
 
-# Add alias the old method to substract/add and replace the #+/#- with our
-# own implementation.
+# Replace the #+/#- with our own implementation.
 # TODO clean up the code a bit.
 class DateTime                  # :nodoc:
 
@@ -42,6 +46,18 @@ class DateTime                  # :nodoc:
   def to_time
     usec = (sec_fraction * 60 * 60 * 24 * (10**6)).to_i
     Time.send(:local, year, month, day, hour, min, sec, usec)
+  end
+end
+
+# We also need an to_datetime method to convert Chronic Times to usable
+# DateTimes.
+class Time                      # :nodoc:
+
+  # Converts a Time to a DateTime object.
+  def to_datetime
+    seconds = sec + Rational(usec, 10**6)
+    offset = Rational(utc_offset, 60 * 60 * 24)
+    DateTime.new(year, month, day, hour, min, seconds, offset)
   end
 end
 
