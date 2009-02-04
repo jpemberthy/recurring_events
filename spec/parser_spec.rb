@@ -31,8 +31,8 @@ describe "Text Normalizer" do
   end
 
   it 'should replace common day times words with hours' do
-    EventParser.new("morning noon").text.should == '7:00 12:00'
-    EventParser.new("afternoon night").text.should == '14:00 20:00'
+    EventParser.new("morning noon").text.should == 'at 7:00 at 12:00'
+    EventParser.new("afternoon night").text.should == 'at 14:00 at 20:00'
   end
 
   it 'should strip punctuation' do

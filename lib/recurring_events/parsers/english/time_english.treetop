@@ -5,7 +5,10 @@ grammar TimeEnglish
 
   # TODO Add recurrency
   rule time
-    (day ' ' time_separator ' ' time / time_hour /  time_word)
+    (day ' ' time_separator ' ' time / 
+    day ' ' time_word /
+    time_hour /  
+    time_word)
     <TimeNode>
   end
 
