@@ -25,9 +25,9 @@ describe "Text Normalizer" do
     EventParser.new('not a number').text.should == 'not a number'
   end
 
-  it 'should remove unused words' do
+  it 'should keep a copy of the original text after modifications' do
     text = 'Some guy needs something on mondays at 4PM foo bar'
-    EventParser.new(text).text.should == 'Some guy needs something on mondays at 4PM'
+    EventParser.new(text).text.should == 'some guy needs something on mondays at 4pm foo bar'
   end
 
   it 'should replace common day times words with hours' do
