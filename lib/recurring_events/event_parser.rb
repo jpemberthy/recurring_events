@@ -82,6 +82,7 @@ class EventParser
   # Make sure we got a valid date (at least a day and an hour).
   # TODO add validation
   def parse_date(date)          # :nodoc
+    date.gsub!(/\bat/, '')      # TODO can this be improved?
     Chronic.parse(date)
   end
 end

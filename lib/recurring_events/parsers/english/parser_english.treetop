@@ -16,7 +16,7 @@ grammar RecurringEvents
   end
 
   rule predicate
-    verb_group ' ' event ' ' time_separator ' ' time
+    verb_group ' ' event ' ' time
     <PredicateNode>
   end
 

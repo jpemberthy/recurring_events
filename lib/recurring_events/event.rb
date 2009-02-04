@@ -8,10 +8,13 @@ class Event
   # @param [String] event_type Type of event. A string description
   # works. Defaults to an empty string.
   # @param [DateTime] starting_date Starting date of the event. Expects a
-  # DateTime. 
+  # DateTime. Defaults to the current DateTime (DateTime.now).
   # @param [DateTime] end_date (optional) End time of the event. Expects a
   # DateTime. Defaults to start_date + 1 hour.
-  def initialize(subject='', event_type='', start_date=nil, end_date=nil)
+  def initialize(subject='', event_type='', start_date=DateTime.now, end_date=nil)
+    
+    raise EventError.new('EventError: start_date is nil') if start_date.nil?
+
     @start_date = start_date
     @subject = subject
     @type = event_type
@@ -21,7 +24,7 @@ class Event
     @start_date = @start_date.to_datetime if @start_date.respond_to?(:to_datetime)
     @end_date = @end_date.to_datetime if @end_date.respond_to?(:to_datetime)
 
-    @end_date = @start_date + 1.hour if end_date.nil?
+    @end_date = @start_date + 1.hour if @end_date.nil?
   end
 
   # Returns the subject of the event.
@@ -88,4 +91,7 @@ class Event
   def type
     @type                       # TODO validate against known types and print.
   end
+end
+
+class EventError < StandardError
 end

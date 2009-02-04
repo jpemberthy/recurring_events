@@ -16,7 +16,7 @@ class SubjectNode < Treetop::Runtime::SyntaxNode # :nodoc:
   end
 end
 
-module TimeNode # :nodoc:
+class TimeNode < Treetop::Runtime::SyntaxNode # :nodoc:
   def value
     { :time => text_value }
   end

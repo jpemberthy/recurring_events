@@ -1,15 +1,15 @@
 grammar TimeEnglish
-  rule time_separator
-    'at' / 'on' / 'this'
-  end
-
   # TODO Add recurrency
   rule time
-    (day ' ' time_separator ' ' time / 
-    day ' ' time_word /
-    time_hour /  
-    time_word)
+    time_separator ' ' (day ' ' time_separator ' ' time_hour / 
+                        day ' ' time_word / 
+                        time_hour / 
+                        time_word) 
     <TimeNode>
+  end
+
+  rule time_separator
+    'at' / 'on' / 'this'
   end
 
   rule time_word
