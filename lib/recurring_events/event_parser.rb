@@ -44,18 +44,19 @@ class EventParser
     Event.new(subject, event, date)
   end
 
-  # Sets the parser language.
+  # Sets the language for the parser.
   # 
   # Set the language to be used when parsing the document. I should be smart
-  # enough to recognize the language you're using, but if you're running into
-  # ParserErrors then you can use this method to manually set the language by
+  # enough to recognize the language you're using, but in case I'm not, you
+  # can use this method to manually set the language by
   # passing a symbol for your language:
+  # 
   # 
   #     EventParser.new('hola').language = :spanish
   #     EventParser.new('bye').language = :english
   # 
   # @param [Symbol] language The language to be used by the parser.
-  # @raise [ParserError] The given language was not recognized
+  # @raise [ParserError] The given language was not recognized.
   def language=(language)
     supported_languages = Dir.chdir(File.dirname(__FILE__) + '/parsers') { Dir['*'] }
     supported_languages.collect!{ |lang| lang.to_sym }

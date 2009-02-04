@@ -3,14 +3,18 @@ require 'date'
 class Event
   # Creates a new event.
   # 
+  # If #to_datetime is defined for +start_date+/+end_date+ it'll be called to
+  # make sure we're dealing with DateTime objects.
+  # 
   # @param [String] subject The person or organization involved with the
   # event. Defaults to an empty string.
   # @param [String] event_type Type of event. A string description
   # works. Defaults to an empty string.
-  # @param [DateTime] starting_date Starting date of the event. Expects a
-  # DateTime. Defaults to the current DateTime (DateTime.now).
+  # @param [DateTime] starting_date Starting date of the event. Defaults to
+  # the current DateTime (DateTime.now).
   # @param [DateTime] end_date (optional) End time of the event. Expects a
-  # DateTime. Defaults to start_date + 1 hour.
+  # DateTime. Defaults to +start_date+ + <tt>1 hour</tt>.
+  # @raise [EventError] The +start_date+ is nil.
   def initialize(subject='', event_type='', start_date=DateTime.now, end_date=nil)
     
     raise EventError.new('EventError: start_date is nil') if start_date.nil?
@@ -20,7 +24,7 @@ class Event
     @type = event_type
     @end_date = end_date
 
-    # Call #to_datetime in case we get Time objects.
+    # Call #to_datetime in case we get Time/Date objects.
     @start_date = @start_date.to_datetime if @start_date.respond_to?(:to_datetime)
     @end_date = @end_date.to_datetime if @end_date.respond_to?(:to_datetime)
 
