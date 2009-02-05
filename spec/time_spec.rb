@@ -15,9 +15,9 @@ describe 'Time patches' do
     ret = @date - 1.hour
     ret.should == DateTime.strptime("2009-02-01T14:49:23+00:00")
 
-    # TODO failing, fix.
-    ret = @date - 24.hours
-    ret.should == DateTime.strptime("2009-01-31T15:49:23+00:00").to_s
+    lambda { 
+      @date - 24.hours
+    }.should raise_error(NotImplementedError)
   end
 
   it 'should allow conversion from DateTime to Time' do

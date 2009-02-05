@@ -28,12 +28,11 @@ end
 # Replace the #+/#- with our own implementation.
 # TODO clean up the code a bit.
 class DateTime                  # :nodoc:
-
   # Return the difference in minutes between between two DateTimes or between
   # DateTime and Hours.
   def -(x)
     case x
-      when Hours; return DateTime.new(year, month, day, hour - x.value, min, sec)
+      when Hours; substract_dates(x)
       else;       return (self.to_time - x.to_time).to_i / 60 # use minutes
     end
   end
@@ -47,6 +46,17 @@ class DateTime                  # :nodoc:
   def to_time
     usec = (sec_fraction * 60 * 60 * 24 * (10**6)).to_i
     Time.send(:local, year, month, day, hour, min, sec, usec)
+  end
+
+  protected
+
+  # Add full days instead of an invalid number of hours if hours > 23.
+  def substract_dates(other)    # :nodoc:
+    if hour - other.value <= 0  
+      raise NotImplementedError.new # TODO go back in time for a period
+                                    # longer than a day
+    end
+    return DateTime.new(year, month, day, hour - other.value, min, sec)
   end
 end
 
