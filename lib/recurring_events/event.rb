@@ -16,8 +16,7 @@ class Event
   # DateTime. Defaults to +start_date+ + <tt>1 hour</tt>.
   # @raise [EventError] The +start_date+ is nil.
   def initialize(subject='', event_type='', start_date=DateTime.now, end_date=nil)
-    
-    raise EventError.new('EventError: start_date is nil') if start_date.nil?
+    validate_dates(start_date, end_date)
 
     @start_date = start_date
     @subject = subject
@@ -94,6 +93,17 @@ class Event
   # @return [String] Type of the event.
   def type
     @type                       # TODO validate against known types and print.
+  end
+
+
+  protected
+
+  def validate_dates(start_date, end_date)            # :nodoc:
+    raise EventError.new('EventError: start_date is nil') if start_date.nil?
+
+    if end_date && (end_date < start_date)
+      raise EventError.new('EventError: invalid date range')
+    end
   end
 end
 
