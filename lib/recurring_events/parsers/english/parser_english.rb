@@ -8,7 +8,7 @@ end
 # Phrase after stripping the subject.
 class PredicateNode < Treetop::Runtime::SyntaxNode # :nodoc:
   def value
-    event.value.merge(time.value)
+    event.value.merge(time_phrase.value)
   end
 end
 
@@ -19,8 +19,14 @@ class SubjectNode < Treetop::Runtime::SyntaxNode # :nodoc:
   end
 end
 
+class TimePhraseNode < Treetop::Runtime::SyntaxNode # :nodoc:
+  def value
+    time.value
+  end
+end
+
 # Event time including date and hour.
-class TimeNode < Treetop::Runtime::SyntaxNode # :nodoc:
+module TimeNode# < Treetop::Runtime::SyntaxNode # :nodoc:
   def value
     { :time => text_value }
   end

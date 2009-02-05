@@ -1,10 +1,13 @@
 grammar TimeEnglish
-  # TODO Add recurrency
+  rule time_phrase
+    time_separator " " time
+    <TimePhraseNode>
+  end  
+
   rule time
-    time_separator ' ' (day ' ' time_separator ' ' time_hour / 
-                        day ' ' time_word / 
-                        time_hour / 
-                        time_word) 
+    (day ' ' (time_separator ' ' time_hour / time_word) 
+    /
+    time_hour / time_word)
     <TimeNode>
   end
 
@@ -12,8 +15,12 @@ grammar TimeEnglish
     'at' / 'on' / 'this'
   end
 
+  rule time_recurrency
+    'every'
+  end    
+
   rule time_word
-    'morning' / 'evening' / 'noon' / 'afternoon'
+    'morning' / 'evening' / 'noon' / 'afternoon / week'
   end
 
   rule day
