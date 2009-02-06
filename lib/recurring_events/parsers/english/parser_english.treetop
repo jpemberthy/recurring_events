@@ -43,7 +43,7 @@ grammar RecurringEvents
 
   rule event_type
     lowercase_word (' '? !time_separator .)*
-  end    
+  end
 
   rule abbreviation
     ('mr' / 'mrs')
