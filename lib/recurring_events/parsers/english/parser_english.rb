@@ -33,7 +33,7 @@ module TimeNode# < Treetop::Runtime::SyntaxNode # :nodoc:
 end
 
 # Type of event.
-module EventNode # :nodoc:
+class EventNode < Treetop::Runtime::SyntaxNode # :nodoc:
   def value
     { :event => text_value }
   end

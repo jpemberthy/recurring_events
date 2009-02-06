@@ -2,7 +2,7 @@ grammar TimeEnglish
   rule time_phrase
     time_separator " " time
     <TimePhraseNode>
-  end  
+  end
 
   rule time
     (day ' ' (time_separator ' ' time_hour / time_word) 

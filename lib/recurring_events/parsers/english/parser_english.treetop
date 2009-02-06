@@ -37,9 +37,13 @@ grammar RecurringEvents
   end
 
   rule event
-    ('a visit' / lowercase_word)
+    ('a' / 'an') ' ' event_type
     <EventNode>
   end
+
+  rule event_type
+    lowercase_word
+  end    
 
   rule abbreviation
     ('mr' / 'mrs')

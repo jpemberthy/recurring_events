@@ -9,7 +9,11 @@ describe 'English Parser' do
     EventParser.parse("Mr. Fakedude needs a visit on monday morning.").should_not be_nil
   end
 
-  it 'should recognize sentences with custom events' do
+  it 'should recognize sentences with week days, a timeand custom events' do
+    EventParser.parse("Mr. Fakedude needs a chicken soup on monday morning.").should_not be_nil
+  end
+
+  it 'should recognize sentences with custom events and recurrencies' do
     EventParser.parse("Mr. Fakedude needs a chicken soup every day at lunch.").should_not be_nil
   end
 end
