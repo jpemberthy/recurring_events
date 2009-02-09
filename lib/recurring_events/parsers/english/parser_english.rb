@@ -58,8 +58,17 @@ module TimePhraseNode
   extend ClassParserNode
 
   def value
-    time.value
+    if separator.kind_of?(RecurrencySeparator) # we need to capture the recurrency time
+      { :recurrency => separator}.merge(time.value)
+    else
+      time.value      
+    end
+
   end
+end
+
+module RecurrencySeparator
+  extend ClassParserNode
 end
 
 # Event time including date and hour.

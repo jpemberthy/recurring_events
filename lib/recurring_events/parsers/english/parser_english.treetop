@@ -42,7 +42,7 @@ grammar RecurringEvents
   end
 
   rule event_type
-    lowercase_word (' '? !time_separator .)*
+    lowercase_word (' '? !separator .)*
   end
 
   rule abbreviation

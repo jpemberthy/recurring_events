@@ -1,14 +1,19 @@
 grammar TimeEnglish
   rule time_phrase
-    time_separator " " time
+    separator ' ' time    
     <TimePhraseNode>
   end
 
   rule time
-    (day ' ' (time_separator ' ' time_hour / time_word) 
-    /
-    time_hour / time_word)
+    ( 
+    day ' ' time_separator ' ' time_hour /
+    (time_separator ' ')? time_hour 
+    )
     <TimeNode>
+  end
+
+  rule separator
+    time_separator / time_recurrency
   end
 
   rule time_separator
@@ -16,11 +21,12 @@ grammar TimeEnglish
   end
 
   rule time_recurrency
-    'every'
-  end    
+    "every" ' ' how_often
+    <RecurrencySeparator>       
+  end
 
-  rule time_word
-    'morning' / 'evening' / 'noon' / 'afternoon / week'
+  rule how_often
+    'day'
   end
 
   rule day
@@ -28,11 +34,11 @@ grammar TimeEnglish
   end
 
   rule time_hour
-    hour (hour_separator? minutes)? (' '? day_or_night)?
+    hour (hour_separator minutes)? (' '? day_or_night)?
   end
   
   rule hour
-    '0'? [0-9] / '1' [0-9] / '2' [0-3]
+    '0' [0-9] / '1' [0-9] / '2' [0-3] / [0-9]
   end
 
   rule hour_separator
