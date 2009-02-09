@@ -103,7 +103,8 @@ class EventParser
   def strip_punctuation         # :nodoc:
     # insert a whitespace if there's not one between the symbol and the
     # next character
-    @text.gsub!(/[.,;']([ ])?/, $1 || ' ')   
+    @text.gsub!(/[.,;'-]([ ])?/, $1 || ' ')
+    @text.gsub!(/\b(a|p) m\b/, "\\1" + 'm')    # fix the cases with a m/p m
     @text.rstrip!
   end
   
@@ -124,8 +125,12 @@ class EventParser
   # Make sure we got a valid date (at least a day and an hour).
   # TODO add validation
   def parse_date(date)          # :nodoc
-    date.gsub!(/\bat/, '')      # TODO can this be improved?
-    Chronic.parse(date)
+    date.gsub!(/\bat/, '')      # TODO fix this from inside the parser
+    Chronic.parse(date) || fix_date(date)
+  end
+  
+  def fix_date(date)            # :nodoc:
+    date                        # TODO write this method.
   end
 end
 

@@ -42,7 +42,7 @@ grammar RecurringEvents
   end
 
   rule event_type
-    lowercase_word (' '? !separator .)*
+    numbered_word (' '? !separator .)*
   end
 
   rule abbreviation
@@ -52,6 +52,10 @@ grammar RecurringEvents
   rule lowercase_word
     [a-z]+
   end
+
+  rule numbered_word
+    (lowercase_word / [0-9]+)+
+  end  
 
   rule period
     '\.'
