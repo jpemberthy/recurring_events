@@ -14,6 +14,6 @@ describe 'English Parser' do
   end
 
   it 'should recognize sentences with custom events and recurrencies' do
-    EventParser.parse("Mr. Fakedude needs a chicken soup every day at lunch.").should_not be_nil
+    EventParser.parse("Mr. Fakedude needs a chicken soup every day at noon.").should_not be_nil
   end
 end
