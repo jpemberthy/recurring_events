@@ -1,3 +1,4 @@
+# TODO Add spaces to terminal tokens
 grammar TimeEnglish
   rule time_phrase
     separator ' ' time    
@@ -6,7 +7,7 @@ grammar TimeEnglish
 
   rule time
     ( 
-    day ' ' (ordinal_date ' ')? time_separator ' ' time_hour /
+    day ' ' (ordinal_date ' ')? time_separator ' ' time_hour (' ' time_recurrency)? /
     (time_separator ' ')? time_hour 
     )
     <TimeNode>
@@ -17,7 +18,7 @@ grammar TimeEnglish
   end
 
   rule time_separator
-    'at' / 'on' / 'this'
+    'at' / 'on' / 'this' / 'in the'
   end
 
   rule time_recurrency
@@ -26,7 +27,8 @@ grammar TimeEnglish
   end
 
   rule how_often
-    'day'
+    [0-9]+ (' ' ('days' / 'weeks'))? /
+    'day' / 'week'
   end
 
   rule day

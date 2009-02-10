@@ -92,11 +92,12 @@ class EventParser
 
   # Replace times of the day with predefined hours.
   # TODO Generalize for other languages
+  # TODO Too much logic in here, move some of this to the parser
   def replace_daytimes          # :nodoc:
-    @text.gsub!(/\b(at )?morning/, 'at 7:00')
-    @text.gsub!(/\b(at )?noon/, 'at 12:00')
-    @text.gsub!(/\b(at )?afternoon/, 'at 14:00')
-    @text.gsub!(/\b(at )?night/, 'at 20:00')
+    @text.gsub!(/\b((at|in the) )?morning/, 'at 7:00')
+    @text.gsub!(/\b((at|in the) )?noon/, 'at 12:00')
+    @text.gsub!(/\b((at|in the) )?afternoon/, 'at 14:00')
+    @text.gsub!(/\b((at|in the) )?night/, 'at 20:00')
   end
 
   # Remove the punctuation in the original text.

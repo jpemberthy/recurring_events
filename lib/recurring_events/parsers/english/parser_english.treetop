@@ -37,8 +37,12 @@ grammar RecurringEvents
   end
 
   rule event
-    ('a' / 'an') ' ' event_type
+    article ' ' event_type
     <EventNode>
+  end
+
+  rule article
+   'a' / 'an' / 'for'
   end
 
   rule event_type

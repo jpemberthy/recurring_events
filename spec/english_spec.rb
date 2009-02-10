@@ -17,7 +17,7 @@ describe "English Parser" do
   end
 
   it "should recognize recurrencies" do
-    event = EventParser.parse('Mr. Fakedude should be visited every day in the morning.')
+    event = EventParser.parse('Mr. Fakedude should be visited for care every day in the morning.')
     event.day.should == :all
     event.hour.should == '07:00'
     
