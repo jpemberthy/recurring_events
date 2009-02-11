@@ -4,7 +4,9 @@ class Event
   # Creates a new event.
   # 
   # If #to_datetime is defined for +start_date+/+end_date+ it'll be called to
-  # make sure we're dealing with DateTime objects.
+  # make sure we're dealing with DateTime objects. 
+  # 
+  # <tt>other</tt> is a hash that should contain the following keys:
   # 
   # @param [String] subject The person or organization involved with the
   # event. Defaults to an empty string.
@@ -15,19 +17,22 @@ class Event
   # @param [DateTime] end_date (optional) End time of the event. Expects a
   # DateTime. Defaults to +start_date+ + <tt>1 hour</tt>.
   # @raise [EventError] The +start_date+ is nil.
-  def initialize(subject='', event_type='', start_date=DateTime.now, end_date=nil)
-    validate_dates(start_date, end_date)
+  def initialize(other)
+    options = default_options.merge(other)
 
-    @start_date = start_date
-    @subject = subject
-    @type = event_type
-    @end_date = end_date
+    validate_dates(options[:start_date], options[:end_date])
+
+    @start_date = options[:start_date]
+    @end_date   = options[:end_date]
+    @subject    = options[:subject]
+    @type       = options[:event_type]
+    @recurrency = options[:recurrency]
 
     # Call #to_datetime in case we get Time/Date objects.
     @start_date = @start_date.to_datetime if @start_date.respond_to?(:to_datetime)
     @end_date = @end_date.to_datetime if @end_date.respond_to?(:to_datetime)
 
-    @end_date = @start_date + 1.hour if @end_date.nil?
+    @end_date = @start_date + 1.hour if @end_date.nil? 
   end
 
   # Returns the subject of the event.
@@ -73,6 +78,9 @@ class Event
   # Returns the length of the event. 
   #     event = EventParser.parse('Someone needs a visit for 38 minutes.')
   #     event.length    # => 38
+  # 
+  # Note that this length will be rounded, so 59.8 minutes will be promoted
+  # to 60 minutes.
   # @return [Fixnum] Length of the event in minutes. Defaults to 60 minutes.
   def length
     @end_date - @start_date
@@ -95,6 +103,17 @@ class Event
     @type                       # TODO validate against known types and print.
   end
 
+  # Returns the recurrency of the event as an offset.
+  # 
+  # The recurrency of the event is specified as an offset of days between
+  # each time it occurs. If an event is held every week on the same day then
+  # this offset will be '7'. If it happens every two weeks then it will be
+  # '14' and so on.
+  # @return [Fixnum] Recurrency offset in days
+  def recurrency
+    @recurrency
+  end
+
 
   protected
 
@@ -105,7 +124,18 @@ class Event
       raise EventError.new('EventError: invalid date range')
     end
   end
+
+  def default_options
+    { 
+      :start_date => DateTime.now,
+      :end_date   => nil,
+      :subject    => '',
+      :type       => '',
+      :recurrency => ''
+    }
+  end
+    
 end
 
-class EventError < StandardError
+  class EventError < StandardError
 end

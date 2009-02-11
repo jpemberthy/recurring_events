@@ -38,10 +38,12 @@ class EventParser
     raise ParserError.new("Error parsing the event: parsed_text nil") if parsed_text.nil?
 
     result = parsed_text.value
-    subject = result[:subject]
-    event = result[:event]
-    date = parse_date(result[:time])
-    Event.new(subject, event, date)
+
+    event_options = { }
+    event_options.merge({ :subject => result[:subject] })
+    event_options.merge({ :type => result[:event] })
+    event_options.merge({ :start_date => parse_date(result[:time]) })
+    Event.new(event_options)
   end
 
   # Sets the language for the parser.

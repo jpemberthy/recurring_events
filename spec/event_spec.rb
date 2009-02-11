@@ -4,7 +4,12 @@ describe "Event" do
   before :all do
     @start_date = DateTime.civil(2012, 11, 13, 10, 58, 46)
     @end_date = DateTime.civil(2012, 11, 13, 11, 13, 46)
-    @event = Event.new("", "", @start_date)
+    @options = { 
+      :start_date => @start_date, 
+      :end_date   => @end_date, 
+      :event_type => 'something'
+    }
+    @event = Event.new(@options)
   end
 
   it 'should return the hour of the event' do
@@ -28,12 +33,11 @@ describe "Event" do
   end
 
   it 'should default length to 60 minutes' do
-    @event.length.should == 60
+    Event.new({ }).length.should == 60
   end
 
   it 'should return the correct length' do
-    e = Event.new('', '', @start_date, @end_date)
-    e.length.should == 15
+    @event.length.should == 15
   end
 
   it 'should return the type of the event' do
@@ -49,16 +53,15 @@ describe "Event" do
   end
 
   it 'should work with Time dates' do
-    e_datetime = Event.new('', '', @start_date, @end_date)
-    e_time = Event.new('', '', @start_date.to_time, @end_date.to_time)
-    e_time.day.should == e_datetime.day
-    e_time.hour.should == e_datetime.hour
-    e_time.month.should == e_datetime.month
+    e_time = Event.new({ :start_date => @start_date.to_time, :end_date => @end_date.to_time})
+    e_time.day.should == @event.day
+    e_time.hour.should == @event.hour
+    e_time.month.should == @event.month
   end
 
   it 'should not allow a negative length' do
     lambda { 
-      Event.new('', '', @end_date, @start_date)
+      Event.new({:start_date => @end_date, :end_date => @start_date})
     }.should raise_error
   end
 end

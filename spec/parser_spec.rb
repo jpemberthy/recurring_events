@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + "/spec_helper"
 
 describe "Parser" do
   it 'has a class method for parsing text' do
-    EventParser.new('foo').parse.should == EventParser.parse('foo')
+    EventParser.should respond_to(:parse)
   end
 end
 
