@@ -5,40 +5,32 @@ grammar TimeEnglish
   end
 
   rule time
-    (
-    day ordinal_date? time_separator time_hour time_recurrency? /
-    time_separator? time_hour
-    )
+    day? hour recurrency?
     <TimeNode>
   end
 
   rule separator
-    time_separator / time_recurrency
+    time_separator / recurrency
   end
 
-  rule time_recurrency
+  rule recurrency
     recurrency_token how_often
     <RecurrencySeparator>
   end
 
-  rule time_hour
-    hour (hour_separator minutes)? am_or_pm?
-  end
-
-  rule how_often
-    number+ time_token /
-    time_token
+  rule day
+    day_token ordinal_date?
   end
 
   rule hour
-    ( '2' [0-3] / ('0' / '1')? number ) spacing?
+    time_separator? hours_token minutes? am_or_pm?
   end
 
-  rule hour_separator
-    ':'
+  rule how_often
+    (number+)? time_token
   end
 
-  rule day
+  rule day_token
     ('monday' / 'tuesday' / 'wednesday' / 'thursday' / 'friday' / 'saturday' / 'sunday') spacing
   end
 
@@ -46,12 +38,16 @@ grammar TimeEnglish
     ('day' / 'week') 's'? spacing
   end
 
-  rule minutes
-    [0-5] [0-9] spacing?
-  end
-
   rule ordinal_date
     number number? letter letter    #25th/2nd
+  end
+
+  rule hours_token
+    '2' [0-3] / ('0' / '1')? number spacing?
+  end
+
+  rule minutes
+    ":"? [0-5] [0-9] spacing?
   end
 
   rule recurrency_token
