@@ -22,7 +22,7 @@ grammar TimeEnglish
   end
 
   rule time_hour
-    hour (hour_separator minutes)? day_or_night?
+    hour (hour_separator minutes)? am_or_pm?
   end
 
   rule how_often
@@ -54,14 +54,6 @@ grammar TimeEnglish
     number number? letter letter    #25th/2nd
   end
 
-  rule number
-    [0-9] spacing?
-  end
-  
-  rule letter
-    [a-z] spacing?
-  end
-
   rule recurrency_token
     'every' spacing
   end
@@ -70,16 +62,7 @@ grammar TimeEnglish
     ('at' / 'on' / 'this' / 'in the') spacing
   end
 
-  rule day_or_night
+  rule am_or_pm
     ("am" / "pm") spacing
-
-  end
-
-  rule spacing
-    " " / '\t' / end_of_line
-  end
-
-  rule end_of_line
-  '\r\n' / '\r' / '\n' / !.
   end
 end

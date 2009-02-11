@@ -2,66 +2,75 @@ grammar RecurringEvents
   include TimeEnglish
 
   rule phrase
-    subject ' ' predicate 
+    subject predicate 
     <PhraseNode>
   end
 
   rule subject
-    (abbreviation ' ')? noun 
+    salutation noun
     <SubjectNode>
   end
 
-  rule noun
-    lowercase_word
-  end
-
   rule predicate
-    verb_group ' ' event ' ' time_phrase
+    verb_group event time_phrase
     <PredicateNode>
   end
 
   rule verb_group
-    verb / auxiliary ' ' past_verb 
+    verb / auxiliary past_verb 
   end  
    
-  rule verb
-    'need' 's'?
-  end
-
-  rule auxiliary
-    'should be' / 'must be' / 'has to'
-  end
-
-  rule past_verb
-    'visited' / lowercase_word
-  end
-
   rule event
-    article ' ' event_type
+    article type_of_event
     <EventNode>
   end
 
+  rule type_of_event
+    (!separator .)+
+  end
+
+  rule alphanumeric
+    (number / letter)+
+  end  
+
+  rule number
+    [0-9] spacing?
+  end
+  
+  rule letter
+    [a-z] spacing?
+  end
+
+  rule noun
+    [a-z]+ spacing
+  end
+
+  rule auxiliary
+    ('should be' / 'must be' / 'has to') spacing
+  end
+
+  rule verb
+    'need' 's'? spacing
+  end
+
+  rule past_verb
+    (!article .)+
+  end
+
+
+  rule salutation
+    'mr' 's'? spacing
+  end
+
   rule article
-   'a' / 'an' / 'for'
+   ('a' / 'an' / 'for') spacing
   end
 
-  rule event_type
-    numbered_word (' '? !separator .)*
+  rule spacing
+    " " / '\t' / end_of_line
   end
 
-  rule abbreviation
-    ('mr' / 'mrs')
+  rule end_of_line
+  '\r\n' / '\r' / '\n' / !.
   end
-
-  rule lowercase_word
-    [a-z]+
-  end
-
-  rule numbered_word
-    (lowercase_word / [0-9]+)+
-  end  
-
-  rule period
-    '\.'
-  end  
 end
