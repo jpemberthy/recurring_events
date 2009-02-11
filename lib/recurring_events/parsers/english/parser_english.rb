@@ -61,9 +61,8 @@ module TimePhraseNode
     if separator.kind_of?(RecurrencySeparator) # we need to capture the recurrency time
       { :recurrency => separator}.merge(time.value)
     else
-      time.value      
+      time.value
     end
-
   end
 end
 

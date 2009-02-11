@@ -38,7 +38,7 @@ class DateTime                  # :nodoc:
   end
 
   # Adds x minutes to self.
-  def +(x) 
+  def +(x)
     return DateTime.new(year, month, day, hour + x.value, min, sec)
   end
 
@@ -52,7 +52,7 @@ class DateTime                  # :nodoc:
 
   # Add full days instead of an invalid number of hours if hours > 23.
   def substract_dates(other)    # :nodoc:
-    if hour - other.value <= 0  
+    if hour - other.value <= 0
       raise NotImplementedError.new # TODO go back in time for a period
                                     # longer than a day
     end

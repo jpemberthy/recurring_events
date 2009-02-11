@@ -2,7 +2,7 @@ grammar RecurringEvents
   include TimeEnglish
 
   rule phrase
-    subject predicate 
+    subject predicate
     <PhraseNode>
   end
 
@@ -17,8 +17,8 @@ grammar RecurringEvents
   end
 
   rule verb_group
-    verb / auxiliary past_verb 
-  end  
+    verb / auxiliary past_verb
+  end
    
   rule event
     article type_of_event
@@ -31,7 +31,7 @@ grammar RecurringEvents
 
   rule alphanumeric
     (number / letter)+
-  end  
+  end
 
   rule number
     [0-9] spacing?
@@ -56,7 +56,6 @@ grammar RecurringEvents
   rule past_verb
     (!article .)+
   end
-
 
   rule salutation
     'mr' 's'? spacing
