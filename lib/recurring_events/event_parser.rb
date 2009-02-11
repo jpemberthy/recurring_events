@@ -35,7 +35,7 @@ class EventParser
 
     @parser = RecurringEventsParser.new
     parsed_text = @parser.parse(@text)
-    raise ParserError.new("Error parsing the event: parsed_text nil") if parsed_text.nil?
+    raise ParserError.new("Error parsing the event:\n" + @parser.failure_reason) if parsed_text.nil?
 
     result = parsed_text.value
 
