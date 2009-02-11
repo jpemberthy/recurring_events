@@ -33,7 +33,7 @@ class DateTime                  # :nodoc:
   def -(x)
     case x
       when Hours; substract_dates(x)
-      else;       return (self.to_time - x.to_time).to_i / 60 # use minutes
+      else;       return ((self.to_time - x.to_time).to_i / 60.0).round # use minutes
     end
   end
 
