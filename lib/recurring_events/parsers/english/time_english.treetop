@@ -1,16 +1,12 @@
 grammar TimeEnglish
   rule time_phrase
-    separator time
+    time / recurrency
     <TimePhraseNode>
   end
 
   rule time
-    day? hour recurrency?
+    day? hour time_phrase?
     <TimeNode>
-  end
-
-  rule separator
-    time_separator / recurrency
   end
 
   rule recurrency
@@ -43,7 +39,7 @@ grammar TimeEnglish
   end
 
   rule hours_token
-    '2' [0-3] / ('0' / '1')? number spacing?
+    ('2' [0-3] / ('0' / '1')? number) spacing?
   end
 
   rule minutes
