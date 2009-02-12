@@ -46,11 +46,11 @@ grammar RecurringEvents
   end
 
   rule auxiliary
-    ('should be' / 'must be' / 'has to') spacing
+    ('debe' / 'deberia' / 'tiene') spacing
   end
 
   rule verb
-    'need' 's'? spacing
+    'necesita' spacing
   end
 
   rule past_verb
@@ -58,11 +58,11 @@ grammar RecurringEvents
   end
 
   rule salutation
-    'mr' 's'? spacing
+    'sr' 'a'? spacing
   end
 
   rule article
-   ('a' / 'an' / 'for') spacing
+   ('un' / 'una' / 'para') spacing
   end
 
   rule spacing

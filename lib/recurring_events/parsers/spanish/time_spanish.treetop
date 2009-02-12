@@ -27,11 +27,11 @@ grammar TimeSpanish
   end
 
   rule day_token
-    ('monday' / 'tuesday' / 'wednesday' / 'thursday' / 'friday' / 'saturday' / 'sunday') spacing
+    ('lunes' / 'martes' / 'miercoles' / 'jueves' / 'viernes' / 'sabado' / 'domingo') spacing
   end
 
   rule time_token
-    ('day' / 'week') 's'? spacing
+    ('dia' / 'semana') 's'? spacing
   end
 
   rule ordinal_date
@@ -47,11 +47,11 @@ grammar TimeSpanish
   end
 
   rule recurrency_token
-    'every' spacing
+    'cada' spacing
   end
 
   rule time_separator
-    ('at' / 'on' / 'this' / 'in the') spacing
+    ('a las' / 'en' / 'este') spacing
   end
 
   rule am_or_pm
