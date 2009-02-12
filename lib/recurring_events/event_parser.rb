@@ -7,6 +7,7 @@ class EventParser
   def initialize(text=nil)
     @text = text
     guess_language
+    set_language
     normalize_text
   end
 
@@ -122,6 +123,24 @@ class EventParser
 
     languages.each do |lang, regex| 
       @language = lang if regex.match(@text)
+    end    
+  end
+
+  def set_language
+    # TODO automatically include these
+    case @language
+      when :english
+        require File.dirname(__FILE__) + '/parsers/english/parser_english'
+        Treetop.load File.dirname(__FILE__) + "/parsers/english/time_english"
+        Treetop.load File.dirname(__FILE__) + "/parsers/english/parser_english"
+      when :spanish
+        require File.dirname(__FILE__) + '/parsers/spanish/parser_spanish'
+        Treetop.load File.dirname(__FILE__) + "/parsers/spanish/time_spanish"
+        Treetop.load File.dirname(__FILE__) + "/parsers/spanish/parser_spanish"
+      when :dutch
+        return
+      else
+      raise ParserError.new("Unknown language for: #{@text}")
     end
   end
 

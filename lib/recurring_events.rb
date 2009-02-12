@@ -6,9 +6,6 @@ require 'recurring_events/event_parser'
 require 'chronic'
 
 require 'treetop'
-require 'recurring_events/parsers/english/parser_english'
-Treetop.load File.dirname(__FILE__) + "/recurring_events/parsers/english/time_english"
-Treetop.load File.dirname(__FILE__) + "/recurring_events/parsers/english/parser_english"
 
 # Custom Methods
 
