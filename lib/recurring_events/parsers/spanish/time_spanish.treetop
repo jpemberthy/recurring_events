@@ -1,0 +1,60 @@
+grammar TimeSpanish
+  rule time_phrase
+    time / recurrency
+    <TimePhraseNode>
+  end
+
+  rule time
+    (day / day? hour) time_phrase?
+    <TimeNode>
+  end
+
+  rule recurrency
+    recurrency_token how_often
+    <RecurrencySeparator>
+  end
+
+  rule day
+    day_token ordinal_date?
+  end
+
+  rule hour
+    time_separator? hours_token minutes? am_or_pm?
+  end
+
+  rule how_often
+    (number+)? time_token
+  end
+
+  rule day_token
+    ('monday' / 'tuesday' / 'wednesday' / 'thursday' / 'friday' / 'saturday' / 'sunday') spacing
+  end
+
+  rule time_token
+    ('day' / 'week') 's'? spacing
+  end
+
+  rule ordinal_date
+    number number? letter letter    #25th/2nd
+  end
+
+  rule hours_token
+    ('2' [0-3] / ('0' / '1')? number) spacing?
+  end
+
+  rule minutes
+    ":"? [0-5] [0-9] spacing?
+  end
+
+  rule recurrency_token
+    'every' spacing
+  end
+
+  rule time_separator
+    ('at' / 'on' / 'this' / 'in the') spacing
+  end
+
+  rule am_or_pm
+    ("am" / "pm") spacing
+  end
+end
