@@ -130,13 +130,9 @@ class EventParser
     # TODO automatically include these
     case @language
       when :english
-        require File.dirname(__FILE__) + '/parsers/english/parser_english'
-        Treetop.load File.dirname(__FILE__) + "/parsers/english/time_english"
-        Treetop.load File.dirname(__FILE__) + "/parsers/english/parser_english"
+        require File.dirname(__FILE__) + '/parsers/english/parser_english.rb'
       when :spanish
-        require File.dirname(__FILE__) + '/parsers/spanish/parser_spanish'
-        Treetop.load File.dirname(__FILE__) + "/parsers/spanish/time_spanish"
-        Treetop.load File.dirname(__FILE__) + "/parsers/spanish/parser_spanish"
+        require File.dirname(__FILE__) + '/parsers/spanish/parser_spanish.rb'
       when :dutch
         return
       else

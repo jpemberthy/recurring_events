@@ -1,3 +1,6 @@
+Treetop.load File.dirname(__FILE__) + "/time_spanish"
+Treetop.load File.dirname(__FILE__) + "/parser_spanish"
+
 # Treetop support for annotations (modules/classes below) is still
 # sub-optimal, requiring classes for certain cases and module extension for
 # others. Instead of worrying about what has to be a class and what has to be
