@@ -5,7 +5,7 @@ grammar TimeEnglish
   end
 
   rule time
-    (day / day? hour) time_phrase?
+    (day? hour / day) time_phrase?
     <TimeNode>
   end
 
@@ -19,11 +19,15 @@ grammar TimeEnglish
   end
 
   rule hour
-    time_separator? hours_token minutes? am_or_pm?
+    time_separator? (hours_token minutes? am_or_pm? / time_of_day)
   end
 
   rule how_often
     (number+)? time_token
+  end
+  
+  rule time_of_day
+    ('morning' / 'noon' / 'afternoon' / 'night') spacing
   end
 
   rule day_token

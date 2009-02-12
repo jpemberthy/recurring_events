@@ -36,7 +36,9 @@ class EventParser
 
     @parser = RecurringEventsParser.new
     parsed_text = @parser.parse(@text)
-    raise ParserError.new("Error parsing the event:\n" + @parser.failure_reason) if parsed_text.nil?
+    if parsed_text.nil?
+      raise ParserError.new("Error parsing the event:\n#{@text}\n#{@parser.failure_reason}")
+    end
 
     result = parsed_text.value
 
@@ -73,12 +75,11 @@ class EventParser
 
   protected
 
-  # Replaces capital letters, word numbers, daytime words, ordinal words and
+  # Replaces capital letters, word numbers and
   # other unwanted characters in the input text string.
   def normalize_text            # :nodoc:
     downcase
     numerize
-    replace_daytimes
     strip_punctuation
   end
 
@@ -91,16 +92,6 @@ class EventParser
   # TODO Generalize for other languages
   def numerize                  # :nodoc:
     @text = Numerizer.numerize(@text)
-  end
-
-  # Replace times of the day with predefined hours.
-  # TODO Generalize for other languages
-  # TODO Too much logic in here, move some of this to the parser
-  def replace_daytimes          # :nodoc:
-    @text.gsub!(/\b((at|in the) )?morning/, 'at 7:00')
-    @text.gsub!(/\b((at|in the) )?noon/, 'at 12:00')
-    @text.gsub!(/\b((at|in the) )?afternoon/, 'at 14:00')
-    @text.gsub!(/\b((at|in the) )?night/, 'at 20:00')
   end
 
   # Remove the punctuation in the original text.

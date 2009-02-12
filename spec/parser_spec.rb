@@ -30,13 +30,6 @@ describe "Text Normalizer" do
     EventParser.new(text).text.should == 'some guy needs something on mondays at 4pm foo bar'
   end
 
-  it 'should replace common day times words with hours' do
-    EventParser.new("morning noon").text.should == 'at 7:00 at 12:00'
-    EventParser.new("afternoon night").text.should == 'at 14:00 at 20:00'
-
-    EventParser.new("at night").text.should == 'at 20:00'
-  end
-
   it 'should strip punctuation' do
     e = EventParser.new('Some,stuff. with; punctuation and that\' kind of stuff.')
     e.text.should == 'some stuff with punctuation and that kind of stuff'
