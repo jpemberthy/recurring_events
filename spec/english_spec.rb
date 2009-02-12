@@ -1,6 +1,24 @@
 require File.dirname(__FILE__) + "/spec_helper"
 
 describe "English Parser" do
+  it "should recognize simple sentences with hour" do
+    EventParser.parse('mr test needs a visit at 3:00pm').should_not be_nil
+  end
+
+  it 'should recognize sentences with week days and a time' do
+    EventParser.parse("Mr. Fakedude needs a visit on monday morning.").should_not be_nil
+  end
+
+  it 'should recognize sentences with week days, a timeand custom events' do
+    EventParser.parse("Mr. Fakedude needs a chicken soup on monday morning.").should_not be_nil
+  end
+
+  it 'should recognize sentences with custom events and recurrencies' do
+    EventParser.parse("Mr. Fakedude needs a chicken soup every day at noon.").should_not be_nil
+  end
+end
+
+describe "Language processing" do
   it "should recognize dates" do
     event = EventParser.parse('Mr. Fakedude needs a 30-minute visit on Monday 25th at 10:00 A.M.')
 
@@ -41,7 +59,7 @@ describe "English Parser" do
   it "should recognize different event types" do
     event = EventParser.parse('Mr. Fakedude needs a 30 minutes visit on monday for medical support')
     event.type.should == "medical support"
-
+    
     event = EventParser.parse('Mr. Fakedude needs a chicken soup every day at lunch.')
     event.type.should == "chicken soup"
   end

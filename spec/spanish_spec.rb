@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + "/spec_helper"
 
-describe "English Parser" do
+describe "Spanish Parser" do
   it "should recognize dates" do
     event = EventParser.parse('El Sr. Falso necesita una visita de 30 minutos los lunes a las 10:00 A.M.')
 
