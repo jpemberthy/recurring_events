@@ -5,7 +5,7 @@ grammar TimeEnglish
   end
 
   rule time
-    day? hour time_phrase?
+    (day / day? hour) time_phrase?
     <TimeNode>
   end
 

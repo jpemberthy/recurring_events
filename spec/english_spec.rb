@@ -40,10 +40,10 @@ describe "English Parser" do
 
   it "should recognize different event types" do
     event = EventParser.parse('Mr. Fakedude needs a 30 minutes visit on monday for medical support')
-    event.event_type.should == "medical support"
+    event.type.should == "medical support"
 
     event = EventParser.parse('Mr. Fakedude needs a chicken soup every day at lunch.')
-    event.event_type.should == "chicken soup"
+    event.type.should == "chicken soup"
   end
 
   it "should recognize complete phrases" do
@@ -54,7 +54,7 @@ describe "English Parser" do
     event.recurrency.should == :every_week
     event.length.should == "30"
     event.subject.should == 'Mr. Fakedude'
-    event.event_type.should == 'medical support'
+    event.type.should == 'medical support'
     event.month.should == :all
     event.year.should == :all
   end

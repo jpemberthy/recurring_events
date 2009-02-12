@@ -12,7 +12,7 @@ grammar RecurringEvents
   end
 
   rule predicate
-    verb_group event time_separator time_phrase
+    verb_group event time_separator time_phrase event?
     <PredicateNode>
   end
 
