@@ -7,7 +7,7 @@ grammar RecurringEvents
   end
 
   rule subject
-    salutation? noun
+    pronoun? salutation? noun
     <SubjectNode>
   end
 
@@ -62,7 +62,11 @@ grammar RecurringEvents
   end
 
   rule article
-   ('un' / 'una' / 'para') spacing
+   ('una' / 'un' / 'para') spacing
+  end
+
+  rule pronoun
+    ('el' / 'la') spacing
   end
 
   rule spacing
