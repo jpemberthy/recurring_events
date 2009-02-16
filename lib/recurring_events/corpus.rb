@@ -34,7 +34,7 @@ class Corpus
     create_environment
     create_database
   end
-  alias :reopen, :open
+  alias_method :reopen, :open
 
   # Close the database and the environment.
   def close
