@@ -66,6 +66,10 @@ describe Corpus do
     @db[:key].should == 'value'
   end
 
+  it 'returns nil if a record does not exist' do
+    @db[:fake].should == nil
+  end
+
   it 'defaults the database file to ./db/corpus.db' do
     expected = File.join(File.dirname(__FILE__), '..', 'lib', 'recurring_events', 'db')
     Corpus.new('db_test.db').send(:default_path).should == expected
