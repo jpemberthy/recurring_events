@@ -2,16 +2,13 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe Corpus do
   before :all do
-    @path = File.dirname(__FILE__), "db", "db_test"
-    @db = Corpus.new(@path)
-  end
-
-  before :each do
-    #clean database
+    @db = Corpus.new("db_test.db")
   end
 
   after :all do
-    #remove db file
+    @db.close
+    # Make sure we remove the database after each run.
+    File.unlink(@db.path)
   end
 
   it 'accepts symbols for value retrieval' do
@@ -71,6 +68,6 @@ describe Corpus do
 
   it 'defaults the database file to ./db/corpus.db' do
     expected = File.join(File.dirname(__FILE__), '..', 'lib', 'recurring_events', 'db')
-    Corpus.new('foo').send(:default_db_file).should == expected
+    Corpus.new('db_test.db').send(:default_path).should == expected
   end
 end
