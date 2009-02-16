@@ -56,6 +56,19 @@ describe Corpus do
     }.should raise_error
   end
 
+  it 'aliases insert to []=' do
+    @db[:foo] = 'bar'
+    @db[:foo].should == 'bar'
+
+    lambda { 
+      @db[nil] = 'baz'
+    }.should raise_error
+
+    lambda { 
+      @db[:baz] = nil
+    }.should raise_error
+  end
+
   it 'accepts an array for insertion' do
     @db << ['foo', 'bar']
     @db[:foo].should == 'bar'
@@ -68,6 +81,13 @@ describe Corpus do
 
   it 'returns nil if a record does not exist' do
     @db[:fake].should == nil
+  end
+
+  it 'saves the records' do
+    @db[:test] = "bla"
+    @db.close
+    @db.open
+    @db[:test].should == 'bla'
   end
 
   it 'defaults the database file to ./db/corpus.db' do

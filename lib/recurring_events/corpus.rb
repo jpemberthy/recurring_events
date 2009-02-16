@@ -27,6 +27,20 @@ class Corpus
     @db.put(nil, key.to_s, value, nil)
   end
   alias_method :<<, :insert
+  alias_method :[]=, :insert
+
+  # Reopens the connection to the database with the initial parameters.
+  def open
+    create_environment
+    create_database
+  end
+  alias :reopen, :open
+
+  # Close the database and the environment.
+  def close
+    @db.close(0)
+    @bdb_env.close
+  end
 
   private
 
@@ -44,12 +58,6 @@ class Corpus
       @db.open(nil, @filename, nil, Bdb::Db::BTREE, 0, 0)
     else
       @db.open(nil, @filename, nil, Bdb::Db::BTREE, Bdb::DB_CREATE | Bdb::DB_AUTO_COMMIT, 0)
-    end
-
-    # Close the database and the environment.
-    def close
-      @db.close(0)
-      @bdb_env.close
     end
   end
 
