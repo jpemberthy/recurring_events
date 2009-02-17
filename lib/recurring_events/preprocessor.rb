@@ -20,14 +20,14 @@ class Preprocessor
   private
 
   # Returns an array of the tokens from the text.
-  def tokenize
+  def tokenize                  # :nodoc:
     @text.split
   end
   
   # Removes all the unwanted characters (commas, semicolons, dashes,
   # etc). These might be useful if the context is to be kept but right now we
   # don't deal with that.
-  def strip_characters
+  def strip_characters          # :nodoc:
     @text.gsub!(/[.,;]([ ])?/, $1 || ' ')
 #    @text.gsub!(/\b(a|p) m\b/, "\\1" + 'm')    # TODO Move to a matcher
     @text.rstrip!

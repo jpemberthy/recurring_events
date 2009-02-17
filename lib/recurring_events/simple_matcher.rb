@@ -31,7 +31,7 @@ class SimpleMatcher
   private
 
   # make sure we don't get empty data
-  def validate_input
+  def validate_input            # :nodoc:
     raise ComplexMatcherError.new("name can't be nil") if @name.nil?
     raise ComplexMatcherError.new("regexp can't be nil") if @regexp.nil?
   end

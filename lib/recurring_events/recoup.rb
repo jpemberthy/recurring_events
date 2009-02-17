@@ -39,7 +39,7 @@ class Recoup
   protected
   
   # creates the initial keys for every category in @matches
-  def setup_categories
+  def setup_categories          # :nodoc:
     [:event, :time, :date, :subject, :salutation, :recurrency].each do |category|
       @matches[category] = []
     end

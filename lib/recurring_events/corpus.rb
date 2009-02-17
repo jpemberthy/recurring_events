@@ -45,14 +45,14 @@ class Corpus
   private
 
   # Sets up a new BDB environment
-  def create_environment
+  def create_environment        # :nodoc:
     @bdb_env = Bdb::Env.new(0)
     FileUtils.mkdir_p(default_path) unless File.exists?(default_path)
     @bdb_env.open(default_path, default_flags, 0)
   end
 
   # Creates a new database using name as the DB filename.
-  def create_database
+  def create_database           # :nodoc:
     @db = @bdb_env.db
     if File.exists?(@path)      # database already exists, just open it
       @db.open(nil, @filename, nil, Bdb::Db::BTREE, 0, 0)
@@ -61,22 +61,13 @@ class Corpus
     end
   end
 
-  # Opens an existing database. +file+ is the path to the DB file. The
-  # default file path is "./db/corpus.db"
-  def open_database(file=default_path)
-  end
-
-  # Close the currently opened database (if it exists).
-  def close_database
-  end
-
-  def default_flags
+  def default_flags             # :nodoc:
     Bdb::DB_CREATE | Bdb::DB_INIT_LOCK | Bdb::DB_INIT_LOG  | Bdb::DB_INIT_TXN  | Bdb::DB_INIT_MPOOL
   end
 
-  def default_path
+  def default_path              # :nodoc:
     File.join(File.dirname(__FILE__), 'db')
   end
 end
 
-class CorpusError < StandardError; end
+class CorpusError < StandardError; end # :nodoc:
