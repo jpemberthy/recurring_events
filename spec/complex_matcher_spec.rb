@@ -30,9 +30,19 @@ describe ComplexMatcher do
       ComplexMatcher.new(:a, /oh-hai/, nil)
     }.should raise_error
   end
+  it 'fails if no name was provided' do
+    lambda { 
+      ComplexMatcher.new(nil, /oh-hai/, Proce.new { })
+    }.should raise_error
+
+  end
 
   it 'applies the Proc to the token when it matches' do
-    @matcher.match('ABC123').should == 'abc123'
+    @matcher.match('ABC123').first.should == 'abc123'
+  end
+
+  it 'returns the modified text and the name (category)' do
+    @matcher.match('ABC123').should == ['abc123', :test_matcher]
   end
   it 'returns nil if it does not match' do
     @matcher.match('123abc').should be_nil

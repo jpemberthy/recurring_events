@@ -11,7 +11,7 @@ class ComplexMatcher
 
   def match(text)
     if @regexp.match(text)
-      @proc.call(text)
+      [@proc.call(text), @name]
     else
       nil
     end
@@ -20,6 +20,7 @@ class ComplexMatcher
   private
   
   def validate_input
+    raise ComplexMatcherError.new("name can't be nil") if @name.nil?
     raise ComplexMatcherError.new("regexp can't be nil") if @regexp.nil?
     raise ComplexMatcherError.new("proc can't be nil") if @proc.nil?
   end
