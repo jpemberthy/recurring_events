@@ -29,7 +29,7 @@ class Preprocessor
   # don't deal with that.
   def strip_characters
     @text.gsub!(/[.,;]([ ])?/, $1 || ' ')
-    @text.gsub!(/\b(a|p) m\b/, "\\1" + 'm')    # strip space from "a m"
+#    @text.gsub!(/\b(a|p) m\b/, "\\1" + 'm')    # TODO Move to a matcher
     @text.rstrip!
   end
 end
