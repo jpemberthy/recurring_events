@@ -15,5 +15,10 @@ class Matchers
   def self.clear
     @matchers = []
   end
+  
+  # load default matchers
+  def self.load
+    
+  end
 end
 

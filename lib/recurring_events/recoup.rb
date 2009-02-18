@@ -3,6 +3,7 @@ class Recoup
     @db = Corpus.new
     @processor = Preprocessor.new(text)
     @matches = { }
+    @to_match = []
     setup_categories
   end
 
@@ -22,18 +23,8 @@ class Recoup
   #
   # 
   def start                     # :nodoc:
-    to_match = []
-
-    @processor.process.each do |token|
-      category = @db[token]
-      if category               # the word is in the corpus
-        @matches[:category] << token
-      else                      # we'll need to run it through the matchers
-        to_match << token
-      end
-    end
-    
-    # TODO run the matchers on to_match
+    run_corpus
+    run_matchers
   end
   
   protected
@@ -42,6 +33,31 @@ class Recoup
   def setup_categories          # :nodoc:
     [:event, :time, :date, :subject, :salutation, :recurrency].each do |category|
       @matches[category] = []
+    end
+  end
+
+  def run_corpus
+    @processor.process.each do |token|
+      category = @db[token]
+      if category               # the word is in the corpus
+        @matches[category] << token
+      else                      # we'll need to run it through the matchers
+        @to_match << token
+      end
+    end
+  end
+
+  def run_matchers
+    tokens = @to_match
+    @to_match.clear
+    Matchers.load
+    tokens.each do |token|
+      text, category = Matchers.run(token)
+      if !text.nil?
+        @matches[category] = text
+      else
+        @to_match << [text, category]
+      end
     end
   end
 end
