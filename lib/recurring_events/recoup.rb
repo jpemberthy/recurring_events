@@ -1,4 +1,6 @@
 class Recoup
+  attr_reader :matches, :to_match, :db
+
   def initialize(text)          # :nodoc:
     @db = Corpus.new
     @processor = Preprocessor.new(text)
@@ -24,7 +26,7 @@ class Recoup
   # 
   def start                     # :nodoc:
     run_corpus
-    run_matchers
+    run_matchers if !@to_match.empty?
   end
   
   protected
@@ -34,12 +36,14 @@ class Recoup
     [:event, :time, :date, :subject, :salutation, :recurrency].each do |category|
       @matches[category] = []
     end
+
   end
 
   def run_corpus
     @processor.process.each do |token|
       category = @db[token]
       if category               # the word is in the corpus
+        @matches[category] ||= []
         @matches[category] << token
       else                      # we'll need to run it through the matchers
         @to_match << token
@@ -49,12 +53,13 @@ class Recoup
 
   def run_matchers
     tokens = @to_match
-    @to_match.clear
+    @to_match = []
     Matchers.load
     tokens.each do |token|
       text, category = Matchers.run(token)
       if !text.nil?
-        @matches[category] = text
+        @matches[category] ||= []
+        @matches[category] << text
       else
         @to_match << [text, category]
       end

@@ -1,5 +1,9 @@
 class Matchers
   def self.run(text)
+    if @matchers.nil? || @matchers.empty?
+      raise MatchersError.new('No matchers registered')
+    end
+
     @matchers.each do |matcher| 
       match = matcher.matches?(text) 
       return match if !match.nil?
@@ -22,3 +26,4 @@ class Matchers
   end
 end
 
+class MatchersError < StandardError; end # :nodoc:
