@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe Recoup do
   before :each do
+    Matchers.clear
     @parser = Recoup.new('afternoon at 3')
     @parser.db.insert('afternoon', :time)
     matcher = SimpleMatcher.new(:number, /\d+/)

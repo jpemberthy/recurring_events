@@ -14,15 +14,15 @@ describe Corpus do
   it 'accepts symbols for value retrieval' do
     @db << ['foo', 'bar']
     @db[:foo].should == @db["foo"]
-    @db[:foo].should =='bar'
+    @db[:foo].should == :bar
   end
 
   it 'inserts and retrieves values into the database' do
     @db.insert(['foo', 'bar'])
     @db.insert('bla', 'baz')
 
-    @db[:foo].should == 'bar'
-    @db[:bla].should == 'baz'
+    @db[:foo].should == :bar
+    @db[:bla].should == :baz
   end
 
   it 'complains on nil keys or nil values' do
@@ -40,12 +40,12 @@ describe Corpus do
 
     ret = @db[:bla]
     ret.should == @db.get(:bla)
-    ret.should == 'baz'
+    ret.should == :baz
   end
 
   it 'aliases insert to <<' do
     @db << ['foo', 'bar']
-    @db[:foo].should == 'bar'
+    @db[:foo].should == :bar
 
     lambda { 
       @db << [nil, 'baz']
@@ -58,7 +58,7 @@ describe Corpus do
 
   it 'aliases insert to []=' do
     @db[:foo] = 'bar'
-    @db[:foo].should == 'bar'
+    @db[:foo].should == :bar
 
     lambda { 
       @db[nil] = 'baz'
@@ -71,12 +71,12 @@ describe Corpus do
 
   it 'accepts an array for insertion' do
     @db << ['foo', 'bar']
-    @db[:foo].should == 'bar'
+    @db[:foo].should == :bar
   end
 
   it 'accepts a key, value pair for insertion' do
-    @db.insert('key', 'value')
-    @db[:key].should == 'value'
+    @db.insert('key', :category)
+    @db[:key].should == :category
   end
 
   it 'returns nil if a record does not exist' do
@@ -84,10 +84,10 @@ describe Corpus do
   end
 
   it 'saves the records' do
-    @db[:test] = "bla"
+    @db[:test] = :bla
     @db.close
     @db.open
-    @db[:test].should == 'bla'
+    @db[:test].should == :bla
   end
 
   it 'defaults the database file to ./db/corpus.db' do

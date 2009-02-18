@@ -10,11 +10,18 @@ describe Matchers do
     Matchers.instance_variable_get(:@matchers).size.should == 1
   end
   
-  it 'returns nil if no match was found' do    
+  it 'raises an exception if no matcher was found' do    
     Matchers.clear
-    Matchers.run("text").should be_nil
+    lambda { 
+      Matchers.run("text").should be_nil
+    }.should raise_error
   end
 
+  it 'returns nil when it does not find matches' do
+    Matchers.clear
+    Matchers.register(@matcher)
+    Matchers.run("  ").should be_nil
+  end
 
   it 'matches a text against all registered matchers' do
     Matchers.register(@matcher)
