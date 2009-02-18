@@ -39,7 +39,10 @@ class Recoup
 
   end
 
-  def run_corpus
+  # Runs the list of tokens through the corpus and saves away the ones it
+  # recognizes. Non-matched tokens go into @to_match to pass them through the
+  # matchers.
+  def run_corpus                # :nodoc:
     @processor.process.each do |token|
       category = @db[token]
       if category               # the word is in the corpus
@@ -51,7 +54,9 @@ class Recoup
     end
   end
 
-  def run_matchers
+  # Runs the @to_match list of tokens through the different matchers and
+  # saves the ones it recognizes in @matches.
+  def run_matchers              # :nodoc:
     tokens = @to_match
     @to_match = []
     Matchers.load
