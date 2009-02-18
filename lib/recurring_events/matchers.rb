@@ -7,10 +7,11 @@ class Matchers
       raise MatchersError.new('No matchers registered')
     end
 
-    @matchers.each do |matcher| 
-      match = matcher.matches?(text) 
+    @matchers.each do |matcher|
+      match = matcher.matches?(text)
       return match if !match.nil?
     end
+
     nil
   end
 

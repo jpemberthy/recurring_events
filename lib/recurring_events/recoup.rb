@@ -36,7 +36,6 @@ class Recoup
     [:event, :time, :date, :subject, :salutation, :recurrency].each do |category|
       @matches[category] = []
     end
-
   end
 
   # Runs the list of tokens through the corpus and saves away the ones it
