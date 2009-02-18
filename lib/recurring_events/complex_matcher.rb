@@ -26,6 +26,7 @@ class ComplexMatcher
       nil
     end
   end
+  alias_method :matches?, :match
 
   private
   

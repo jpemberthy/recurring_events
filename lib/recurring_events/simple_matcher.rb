@@ -27,6 +27,7 @@ class SimpleMatcher
       nil
     end
   end
+  alias_method :matches?, :match
 
   private
 

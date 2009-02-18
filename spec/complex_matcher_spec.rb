@@ -39,6 +39,9 @@ describe ComplexMatcher do
 
   it 'applies the Proc to the token when it matches' do
     @matcher.match('ABC123').first.should == 'abc123'
+
+    cm = ComplexMatcher.new(:test_complex_matcher, /\d+/, Proc.new { |match| match.to_i })
+    cm.match('123').first.should == 123
   end
 
   it 'returns the modified text and the name (category)' do
