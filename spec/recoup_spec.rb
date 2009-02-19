@@ -19,4 +19,10 @@ describe Recoup do
     @parser.matches[:time].should include('afternoon')
     @parser.matches[:number].should include('3')
   end
+  
+  it 'saves away the unmatched words' do
+    @parser.start
+    db = Corpus.new("unmatched.db")
+    db["at"].should == :"afternoon at 3"
+  end
 end

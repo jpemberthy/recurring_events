@@ -20,13 +20,15 @@ class Recoup
   # tokenized output.
   # 2. Match the tokens against the database records or against the custom
   # filters.
-  # 3. ???
-  # 4. Profit!
+  # 3. Save the non-matched words in a database (with the full phrase).
+  # 4. ??
+  # 5. Profit!
   #
   # 
   def start                     # :nodoc:
     run_corpus
     run_matchers if !@to_match.empty?
+    save_unmatched_words if !@to_match.empty?
   end
   
   protected
@@ -65,8 +67,19 @@ class Recoup
         @matches[category] ||= []
         @matches[category] << text
       else
-        @to_match << [text, category]
+        @to_match << token
       end
     end
+  end
+
+  # Write all the words in @to_match to a database. Saves them as 
+  # (token : original phrase) pairs. Useful for future improvementes.
+  def save_unmatched_words      # :nodoc:
+    db = Corpus.new("unmatched.db")
+    text = @processor.original_text
+    @to_match.each do |token|
+      db[token] = text
+    end
+    db.close
   end
 end
