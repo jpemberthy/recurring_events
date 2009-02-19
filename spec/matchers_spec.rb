@@ -36,3 +36,35 @@ describe Matchers do
   end
 end
 
+describe "Predefined Matchers" do
+  before :all do
+    Matchers.clear
+    Matchers.load_default_matchers
+  end
+
+  it 'includes an hour matcher' do
+    ret = []
+    ret << Matchers.run('15:00')
+    ret << Matchers.run('6:00')
+    ret << Matchers.run('06:00')
+    ret << Matchers.run('06:00pm')
+    ret << Matchers.run('06:00 pm')
+    
+    ret.collect { |p| p.first}.should == ["15:00", "6:00", "06:00", "06:00pm", "06:00 pm"]
+    ret.all? { |p| p.last == :time }.should be_true
+  end
+
+  it 'includes a complex day time matcher' do
+    ret = []
+    Matchers.run("morning").should == ["07:00", :time]
+    Matchers.run("noon").should == ["12:00", :time]
+    Matchers.run("afternoon").should == ["14:00", :time]
+    Matchers.run("night").should == ["20:00", :time]
+  end
+
+  it 'includes a simple recurrency matcher' do
+    Matchers.run("every week").should == ["every week", :recurrency]
+    Matchers.run("every 3 weeks").should == ["every 3 weeks", :recurrency]
+  end
+end
+

@@ -36,7 +36,7 @@ class Recoup
   
   # creates the initial keys for every category in @matches
   def setup_categories          # :nodoc:
-    [:event, :time, :date, :subject, :salutation, :recurrency].each do |category|
+    [:event, :time, :subject, :salutation, :recurrency].each do |category|
       @matches[category] = []
     end
   end
@@ -61,7 +61,7 @@ class Recoup
   def run_matchers              # :nodoc:
     tokens = @to_match
     @to_match = []
-    Matchers.load
+    Matchers.load_default_matchers
     tokens.each do |token|
       text, category = Matchers.run(token)
       if !text.nil?
