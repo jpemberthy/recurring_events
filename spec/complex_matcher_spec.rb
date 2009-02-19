@@ -47,7 +47,13 @@ describe ComplexMatcher do
   it 'returns the modified text and the name (category)' do
     @matcher.match('ABC123').should == ['abc123', :test_matcher]
   end
+
   it 'returns nil if it does not match' do
     @matcher.match('123abc').should be_nil
+  end
+
+  it 'accepts lambdas' do
+    matcher = ComplexMatcher.new(:test, /abc/, lambda { "def" })
+    matcher.match('abc').should == ["def", :test]
   end
 end
