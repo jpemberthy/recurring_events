@@ -29,6 +29,7 @@ class Recoup
     run_corpus
     run_matchers if !@to_match.empty?
     save_unmatched_words if !@to_match.empty?
+    @matches
   end
   
   protected

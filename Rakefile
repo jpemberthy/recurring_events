@@ -12,3 +12,9 @@ desc "Generate the documentation using YARD"
 YARD::Rake::YardocTask.new('doc') do |t|
   t.files   = ['lib/**/*.rb'] 
 end
+
+desc "Run all examples with RCov"
+Spec::Rake::SpecTask.new('rcov') do |t|
+  t.spec_files = FileList['spec/**/*.rb']
+  t.rcov = true
+end

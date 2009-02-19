@@ -8,6 +8,10 @@ describe Recoup do
     matcher = SimpleMatcher.new(:number, /\d+/)
     Matchers.register(matcher)
   end
+  
+  it 'has a class method for fast starts' do
+    c = Recoup.start('some text').should == Recoup.new('some text').start
+  end
 
   it 'uses the corpus to match tokens' do
     @parser.start

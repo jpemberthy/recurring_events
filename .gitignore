@@ -3,3 +3,4 @@ phrases
 doc/
 .DS_Store
 *db/
+coverage/
