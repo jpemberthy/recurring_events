@@ -47,6 +47,15 @@ class Corpus
     @bdb_env.close
   end
 
+  # Load a set of tokens from an existing YAML corpus.
+  def load_yaml(file)
+    require 'yaml'
+    tokens = YAML.load_file(file)
+    tokens.each do |token, category|
+      @db[token] = category
+    end
+  end
+
   private
 
   # Sets up a new BDB environment

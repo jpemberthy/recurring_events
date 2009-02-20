@@ -1,0 +1,22 @@
+monday    : day
+tuesday   : day
+wednesday : day
+thursday  : day
+friday    : day
+saturday  : day
+sunday    : day
+
+mr: salutation
+mrs: salutation
+
+a: article
+an: article
+for: article
+at: preposition
+'on': preposition               # workaround http://yaml.org/type/bool.html
+this: preposition
+in: preposition
+the: preposition
+
+needs: verb
+

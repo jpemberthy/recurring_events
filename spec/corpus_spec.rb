@@ -94,4 +94,12 @@ describe Corpus do
     expected = File.join(File.dirname(__FILE__), '..', 'lib', 'recurring_events', 'db')
     Corpus.new('db_test.db').send(:default_path).should == expected
   end
+
+  it 'loads definitions from a YAML file and inserts them into the database' do
+    file = File.join(File.dirname(__FILE__), "..", "lib", "recurring_events", "corpus.yml")
+    db = Corpus.new('yaml_test.db')
+    db.load_yaml(file)
+    db["saturday"].should == :day
+    db["an"].should == :article
+  end
 end
