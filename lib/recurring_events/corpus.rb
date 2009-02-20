@@ -12,7 +12,7 @@ class Corpus
 
   # Gets the value associated with key.
   def get(key)
-    val = @db.get(nil, key.to_s, nil, 0)
+    val = @db.get(nil, key.to_s.downcase, nil, 0)
     if !val.nil?
       val.to_sym
     else
@@ -29,7 +29,7 @@ class Corpus
     if key.nil? || value.nil?
       raise CorpusError.new("Invalid key/value: #{key} - #{value}")
     end
-    @db.put(nil, key.to_s, value.to_s, nil)
+    @db.put(nil, key.to_s.downcase, value.to_s.downcase, nil)
   end
   alias_method :<<, :insert
   alias_method :[]=, :insert
