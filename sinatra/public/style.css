@@ -40,8 +40,8 @@ input.huge{
 }
 
 div.code {
-    font-family: Inconsolata;
-    font-size: 17px;
+    font-family: Monaco;
+    font-size: 14px;
     margin-left: 50px;
     width: 600px;
 }

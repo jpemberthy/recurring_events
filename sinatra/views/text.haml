@@ -13,13 +13,17 @@
   %p
     %span{"class" => "category"} Event
     %span{"class" => "category_text"}
-      =@result[:event].join(" ")
+      =@result[:event].join(" ").capitalize
 
   %p
     %span{"class" => "category"} Subject
     %span{"class" => "category_text"}
       =@result[:subject].join(" ")
 
+  %p
+    %span{"class" => "category"} Date
+    %span{"class" => "category_text"} 
+      =@result[:day].join(" ").capitalize
   %p
     %span{"class" => "category"} Time
     %span{"class" => "category_text"} 
