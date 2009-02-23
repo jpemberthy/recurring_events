@@ -22,9 +22,7 @@ class Recoup
   # filters.
   # 3. Save the non-matched words in a database (with the full phrase).
   # 4. ??
-  # 5. Profit!
-  #
-  # 
+  # 5. Returns a hash containing the extracted properties.
   def start                     # :nodoc:
     run_corpus
     run_matchers if !@to_match.empty?

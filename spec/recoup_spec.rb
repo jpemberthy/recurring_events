@@ -29,4 +29,11 @@ describe Recoup do
     db = Corpus.new("unmatched.db")
     db["at"].should == :"afternoon at 3"
   end
+
+  it 'returns a hash with the found properties' do
+    ret = @parser.start
+    ret.should be_kind_of(Hash)
+    ret.should include(:preposition)
+    ret.should include(:time)
+  end
 end
