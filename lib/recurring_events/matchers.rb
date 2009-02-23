@@ -29,7 +29,8 @@ class Matchers
   
   # Loads a collection of simple but useful matchers.
   def self.load_default_matchers
-    @matchers << SimpleMatcher.new(:time, /((2[0-3])|(0|1)?\d):[0-5][0-9]( ?(am|pm))?/)
+    @matchers ||= []
+    @matchers << SimpleMatcher.new(:time, /((2[0-3])|(0|1)?\d):[0-5][0-9](am|pm)?/)
     @matchers << SimpleMatcher.new(:recurrency, /every (\d )?week(s)?/)
 
     @matchers << ComplexMatcher.new(:time, /morning/,   lambda { "07:00" })

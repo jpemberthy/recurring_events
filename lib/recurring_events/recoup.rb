@@ -7,6 +7,9 @@ class Recoup
     @matches = { }
     @to_match = []
     setup_categories
+
+    corpus = File.join(File.dirname(__FILE__), "corpus.yml")
+    db.load_yaml(corpus)
   end
 
   # Starts the parsing process for text. Returns an Event or nil if the text
