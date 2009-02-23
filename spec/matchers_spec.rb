@@ -63,8 +63,24 @@ describe "Predefined Matchers" do
   end
 
   it 'includes a simple recurrency matcher' do
-    Matchers.run("every week").should == ["every week", :recurrency]
-    Matchers.run("every 3 weeks").should == ["every 3 weeks", :recurrency]
+    Matchers.run("every").should == ["every", :recurrency]
+    Matchers.run("day").should == ["day", :recurrency]
+    Matchers.run("everyday").should be_nil
+
+    Matchers.run("week").should == ["week", :recurrency]
+    Matchers.run("weeks").should == ["weeks", :recurrency]
+  end
+
+  it 'includes a date matcher' do 
+    Matchers.run("1st").should == ["1st", :day]
+    Matchers.run("2nd").should == ["2nd", :day]
+    Matchers.run("3rd").should == ["3rd", :day]
+    Matchers.run("25th").should == ["25th", :day]
+  end
+
+  it 'includes a number matcher' do
+    Matchers.run("30").should == ["30", :number]
+    Matchers.run("30").should_not == ["Fakedude", :time]
   end
 end
 
