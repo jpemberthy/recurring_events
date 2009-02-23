@@ -20,3 +20,24 @@ the: preposition
 
 needs: verb
 
+appointment: event
+date: event
+visit: event
+injections: event
+meal: event
+shopping: event
+showering: event
+support: event
+nursing: event
+food: event
+drinks: event
+clothing: event
+education: event
+prothesis: event
+shopping: event
+showering: event
+injection: event
+check: event
+bingo: event
+travel: event
+vacuuming: event
