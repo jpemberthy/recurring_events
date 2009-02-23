@@ -2,5 +2,5 @@ phrases
 .yardoc
 doc/
 .DS_Store
-*db/
+lib/recurring_events/db/
 coverage/
