@@ -25,12 +25,19 @@
     %span{"class" => "category_text"} 
       =@result[:time].join(" ")
 
+  %p
+    %span{"class" => "category_small"} Recurrency
+    %span{"class" => "category_text_small"} 
+      =@result[:recurrency].join(" ").capitalize
+
+  %p
+    %span{"class" => "category_small"} Other
+
   .code
-    %p { 
+    %p 
     - @unmatched.each do |k,v|
       %span{"class" => "code_key"} 
         = k
       <span>=></span>
       = v.inspect
       %br
-    %P }

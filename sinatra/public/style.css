@@ -33,11 +33,16 @@ input.huge{
     width: 250px;
 }
 
+.category_small {
+    font-size: 1.5em;
+    color: #6f6f6f;
+    width: 250px;
+}
+
 div.code {
     font-family: Inconsolata;
     font-size: 17px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 50px;
     width: 600px;
 }
 
@@ -45,6 +50,11 @@ span.code_key {     color: #6f6f6f; }
 
 .category_text {
     font-size: 3em;
+    margin-left: 15px;
+}
+
+.category_text_small {
+    font-size: 1.5em;
     margin-left: 15px;
 }
 
