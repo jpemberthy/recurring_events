@@ -23,6 +23,7 @@ needs: verb
 visited: verb
 should: verb
 be: verb
+requires: verb
 
 medical: event
 play: event

@@ -20,6 +20,6 @@ describe Preprocessor do
 
   it 'processes the text and returns a list of tokens' do
     tokens = Preprocessor.new("Hey, this is a list of tokens!").process
-    tokens.should == ['Hey', 'this', 'is', 'a', 'list', 'of', 'tokens!']
+    tokens.should == ['hey', 'this', 'is', 'a', 'list', 'of', 'tokens!']
   end
 end

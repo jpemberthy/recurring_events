@@ -21,7 +21,7 @@ class Preprocessor
 
   # Returns an array of the tokens from the text.
   def tokenize                  # :nodoc:
-    @text.split
+    @text.split.map { |token| token.downcase }
   end
   
   # Removes all the unwanted characters (commas, semicolons, dashes,
