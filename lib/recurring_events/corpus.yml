@@ -17,9 +17,16 @@ at: preposition
 this: preposition
 in: preposition
 the: preposition
+to: preposition
 
 needs: verb
+visited: verb
+should: verb
+be: verb
 
+medical: event
+play: event
+care: event
 appointment: event
 date: event
 visit: event
@@ -41,3 +48,5 @@ check: event
 bingo: event
 travel: event
 vacuuming: event
+chicken: event
+soup: event
