@@ -1,0 +1,51 @@
+body { 
+    padding-top: 80px;
+    background-color: #3f3f3f;  
+    color: #dcdccc;
+    font-family: Gill sans;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-weight: bold;
+    line-height: 1.5em;
+}
+
+.text {
+    margin-left: 20px;
+    line-height: 1.5em;
+}
+
+input.huge{
+    border-color:#bbbbbb;
+    font:normal 35px Gill sans;
+    border: 1px solid black;
+    width: 800px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.category {
+    font-size: 3em;
+    color: #6f6f6f;
+    width: 250px;
+}
+
+div.code {
+    font-family: Inconsolata;
+    font-size: 17px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+span.code_key {     color: #6f6f6f; }
+
+.category_text {
+    font-size: 3em;
+    margin-left: 15px;
+}
+
+

@@ -1,0 +1,36 @@
+%title Recurring Event Parser
+%link{"rel" => "stylesheet", "type" => "text/css", "href" => "style.css"}
+  %div{"class" => "text bold spaced"}
+  .title 
+    Recoup
+
+  .text
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+
+  %form{"action" => "/text", "method" => "post"}
+    %input{ "type" => "text", "class" => "huge", "name" => "text", "value" => params[:text] }
+
+  %p
+    %span{"class" => "category"} Event
+    %span{"class" => "category_text"}
+      =@result[:event].join(" ")
+
+  %p
+    %span{"class" => "category"} Subject
+    %span{"class" => "category_text"}
+      =@result[:subject].join(" ")
+
+  %p
+    %span{"class" => "category"} Time
+    %span{"class" => "category_text"} 
+      =@result[:time].join(" ")
+
+  .code
+    %p { 
+    - @unmatched.each do |k,v|
+      %span{"class" => "code_key"} 
+        = k
+      <span>=></span>
+      = v.inspect
+      %br
+    %P }
