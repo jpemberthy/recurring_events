@@ -13,26 +13,26 @@
   %p
     %span{"class" => "category"} Event
     %span{"class" => "category_text"}
-      =@result[:event].join(" ").capitalize
+      =text_for(:event)
 
   %p
     %span{"class" => "category"} Subject
     %span{"class" => "category_text"}
-      =@result[:subject].join(" ")
+      =subject_name
 
   %p
     %span{"class" => "category"} Date
     %span{"class" => "category_text"} 
-      =@result[:day].join(" ").capitalize
+      =text_for(:day)
   %p
     %span{"class" => "category"} Time
     %span{"class" => "category_text"} 
-      =@result[:time].join(" ")
+      =text_for(:time)
 
   %p
     %span{"class" => "category_small"} Recurrency
     %span{"class" => "category_text_small"} 
-      =@result[:recurrency].join(" ").capitalize
+      =text_for(:recurrency)
 
   %p
     %span{"class" => "category_small"} Other
