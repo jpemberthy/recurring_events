@@ -9,7 +9,7 @@ describe Recoup do
     Matchers.register(matcher)
   end
   
-  it 'has a class method for fast starts' do
+  it 'has a class method alias for a fast start' do
     c = Recoup.start('some text').should == Recoup.new('some text').start
   end
 
