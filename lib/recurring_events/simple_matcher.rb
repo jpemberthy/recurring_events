@@ -22,7 +22,7 @@ class SimpleMatcher
   # match.
   def match(text)
     if match = @regexp.match(text)
-      @matched_text = match.to_a.join
+      @matched_text = match.to_s
       [match.to_s, @name]
     else
       nil

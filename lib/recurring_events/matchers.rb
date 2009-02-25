@@ -13,7 +13,7 @@ class Matchers
     @matchers.each do |matcher|
       if match = matcher.matches?(text)
         @matches << match
-        text.sub!(/#{matcher.matched_text}( *)?/,'')
+        text.sub!(/#{matcher.matched_text}/,'')
         retry
       end
     end
@@ -43,7 +43,7 @@ class Matchers
     @matchers << SimpleMatcher.new(:recurrency, /\b(day|week)s?\b/)
 
 
-    @matchers << SimpleMatcher.new(:day, /[0-3]?[0-9] ?(st|nd|rd|th)/)
+    @matchers << SimpleMatcher.new(:day, /[0-3]?[0-9](st|nd|rd|th)/)
     @matchers << SimpleMatcher.new(:number, /\b\d+\b/)
 
     @matchers << ComplexMatcher.new(:time, /morning/,   lambda { "07:00" })
