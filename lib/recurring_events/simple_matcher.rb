@@ -1,5 +1,5 @@
 class SimpleMatcher
-  attr_reader :name, :regexp, :match_text
+  attr_reader :name, :regexp, :matched_text
 
   # Creates a new SimpleMatcher with name and a regexp. Both fields are
   # mandatory. If you want to apply a Proc to the resulting expression (to
@@ -22,7 +22,7 @@ class SimpleMatcher
   # match.
   def match(text)
     if match = @regexp.match(text)
-      @match_text = match.to_s
+      @matched_text = match.to_a.join
       [match.to_s, @name]
     else
       nil

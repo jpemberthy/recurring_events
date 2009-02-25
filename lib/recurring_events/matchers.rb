@@ -1,25 +1,23 @@
 class Matchers
   # Runs a text through the different text matchers. Returns an array of
-  # [text, category] if it matches and nil if nothing matches. raises a
+  # [text, category] if it matches and an empty array if nothing matches. Raises a
   # MatchersError if no matchers were registered.
   def self.run(text)
-    if @matchers.nil? || @matchers.empty?
-      raise MatchersError.new('No matchers registered')
-    end
-
     @matches = []
+    raise MatchersError.new('No matchers registered') if no_matchers?
+
+    # Check the text against each matcher. If the text matches then remove
+    # the *original* text from the string, add its transformation to the list
+    # of matches and restart the matching loop. If not we can move to the
+    # next matcher. Note that original text != token text for some ComplexMatchers.
     @matchers.each do |matcher|
-      token, category = matcher.matches?(text)
-      orig_token = matcher.match_text
-      if !token.nil?
-        @matches << [token, category]
-        # replace the original text and not the token returned by the ComplexMatchers
-        text.sub!(/#{orig_token}( *)?/,'')
+      if match = matcher.matches?(text)
+        @matches << match
+        text.sub!(/#{matcher.matched_text}( *)?/,'')
         retry
-      else
-        next                   # no matches, bail out.
       end
     end
+
     @matches
   end
 
@@ -52,6 +50,12 @@ class Matchers
     @matchers << ComplexMatcher.new(:time, /\bnoon\b/,      lambda { "12:00" })
     @matchers << ComplexMatcher.new(:time, /afternoon/, lambda { "14:00" })
     @matchers << ComplexMatcher.new(:time, /night/, lambda { "20:00" })
+  end
+  
+  protected
+  
+  def self.no_matchers?
+    @matchers.nil? || @matchers.empty?
   end
 end
 

@@ -1,5 +1,5 @@
 class ComplexMatcher
-  attr_reader :name, :regexp, :proc, :match_text
+  attr_reader :name, :regexp, :proc, :matched_text
 
   # Creates a new ComplexMatcher with a name, a regexp and a Proc. All the
   # fields are mandatory. If you want to skip the Proc then you can use a
@@ -21,7 +21,7 @@ class ComplexMatcher
   # matcher. Returns nil if the text does not match.
   def match(text)
     if match = @regexp.match(text)
-      @match_text = match.to_a.join
+      @matched_text = match.to_a.join
       [@proc.call(match.to_s), @name]
     else
       nil
