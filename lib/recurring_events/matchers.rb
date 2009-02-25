@@ -33,7 +33,7 @@ class Matchers
     @matchers << SimpleMatcher.new(:time, /((2[0-3])|(0|1)?\d):[0-5][0-9](am|pm)?/)
     @matchers << SimpleMatcher.new(:time, /(A|P)\.?M\.?/)
 
-    @matchers << SimpleMatcher.new(:recurrency, /\bevery\b/)
+    @matchers << SimpleMatcher.new(:recurrency, /\bevery|each\b/)
     @matchers << SimpleMatcher.new(:recurrency, /\b(day|week)s?\b/)
 
 
