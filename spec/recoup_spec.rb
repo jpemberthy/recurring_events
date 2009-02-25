@@ -36,4 +36,9 @@ describe Recoup do
     ret.should include(:preposition)
     ret.should include(:time)
   end
+
+  it 'parses complex sentences' do
+    ret = Recoup.start("Mr. Bart needs a chicken soup every day at 3:00 PM")
+    ret.should == {:article=>["a"], :time=>["3:00", "pm"], :number=>[], :day=>[], :verb=>["needs"], :name=>["bart"], :preposition=>["at"], :recurrency=>["every", "day"], :event=>["chicken", "soup"], :salutation=>["mr"]}
+  end
 end
