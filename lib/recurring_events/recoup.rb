@@ -60,17 +60,19 @@ class Recoup
   # Runs the @to_match list of tokens through the different matchers and
   # saves the ones it recognizes in @matches.
   def run_matchers              # :nodoc:
-    tokens = @to_match
-    @to_match = []
+    phrase = remove_matched(@processor.original_text.clone)
     Matchers.load_default_matchers
-    tokens.each do |token|
-      text, category = Matchers.run(token)
+    matches = Matchers.run(phrase)
+    matches.each do |match|
+      text,category = match
       if !text.nil?
         @matches[category] ||= []
         @matches[category] << text
+        phrase.sub(text, '')
       else
-        @to_match << token
-      end
+        @to_match << text
+
+    end
     end
   end
 
@@ -83,5 +85,14 @@ class Recoup
       db[token] = text
     end
     db.close
+  end
+
+  def remove_matched(string)
+    @matches.each do |match_array|
+      match_array.last.each do |match|
+        string.gsub!(match, '')
+      end
+    end
+    string
   end
 end

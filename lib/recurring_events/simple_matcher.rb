@@ -1,5 +1,5 @@
 class SimpleMatcher
-  attr_reader :name, :regexp
+  attr_reader :name, :regexp, :match_text
 
   # Creates a new SimpleMatcher with name and a regexp. Both fields are
   # mandatory. If you want to apply a Proc to the resulting expression (to
@@ -17,12 +17,13 @@ class SimpleMatcher
   end
 
   # Matches the text against the regular expression provided in the matcher's
-  # creation. If it matches then it returns an array with [text, category] where
+  # creation. If it matches then it returns an array with [text, category where
   # category is the name of the matcher. Returns nil if the text does not
   # match.
   def match(text)
-    if @regexp.match(text)
-      [text, @name]
+    if match = @regexp.match(text)
+      @match_text = match.to_s
+      [match.to_s, @name]
     else
       nil
     end

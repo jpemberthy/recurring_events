@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe ComplexMatcher do
   before :all do
-    @regexp = /[A-Z][0-9]/
+    @regexp = /[A-Z]+[0-9]+/
     @proc = Proc.new { |s| s.downcase }
     @matcher = ComplexMatcher.new(:test_matcher, @regexp, @proc)
   end

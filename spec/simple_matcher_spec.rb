@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe SimpleMatcher do
   before :all do
-    @regexp = /[a-z][0-9]/
+    @regexp = /[a-z]+[0-9]+/
     @matcher = SimpleMatcher.new(:test_matcher, @regexp)
   end
 

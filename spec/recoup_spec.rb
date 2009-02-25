@@ -4,7 +4,7 @@ describe Recoup do
   before :each do
     Matchers.clear
     @parser = Recoup.new('afternoon at 3')
-    matcher = SimpleMatcher.new(:number, /\d+/)
+    matcher = ComplexMatcher.new(:number, /\d/, Proc.new { |n| n.strip })
     Matchers.register(matcher)
   end
   
@@ -26,7 +26,6 @@ describe Recoup do
   it 'saves away the unmatched words' do
     parser = Recoup.new('unmatched afternoon')
     parser.start
-
     db = Corpus.new("unmatched.db")
     db["unmatched"].should == :"unmatched afternoon"
   end

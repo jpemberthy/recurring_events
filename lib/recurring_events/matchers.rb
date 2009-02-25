@@ -7,12 +7,20 @@ class Matchers
       raise MatchersError.new('No matchers registered')
     end
 
+    @matches = []
     @matchers.each do |matcher|
-      match = matcher.matches?(text)
-      return match if !match.nil?
+      token, category = matcher.matches?(text)
+      orig_token = matcher.match_text
+      if !token.nil?
+        @matches << [token, category]
+        # replace the original text and not the token returned by the ComplexMatchers
+        text.sub!(/#{orig_token}( *)?/,'')
+        retry
+      else
+        next                   # no matches, bail out.
+      end
     end
-
-    nil
+    @matches
   end
 
   # Registers a new matcher for the runner. You should call this method for
@@ -30,10 +38,10 @@ class Matchers
   # Loads a collection of simple but useful matchers.
   def self.load_default_matchers
     @matchers ||= []
-    @matchers << SimpleMatcher.new(:time, /((2[0-3])|(0|1)?\d):[0-5][0-9](am|pm)?/)
-    @matchers << SimpleMatcher.new(:time, /(A|P)\.?M\.?/)
+    @matchers << SimpleMatcher.new(:time, /\b((2[0-3])|(0|1)?\d):[0-5][0-9](am|pm)?\b/)
+    @matchers << SimpleMatcher.new(:time, /([a]|p)\.?m\.?/)
 
-    @matchers << SimpleMatcher.new(:recurrency, /\bevery|each\b/)
+    @matchers << SimpleMatcher.new(:recurrency, /\b(every|each)\b/)
     @matchers << SimpleMatcher.new(:recurrency, /\b(day|week)s?\b/)
 
 
