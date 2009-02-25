@@ -1,6 +1,6 @@
 $:.unshift File.dirname(__FILE__)
 
-require 'bdb'
+require 'tokyocabinet'
 require 'recurring_events/corpus'
 require 'recurring_events/preprocessor'
 require 'recurring_events/simple_matcher'

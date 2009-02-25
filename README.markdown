@@ -19,6 +19,6 @@ Or something more complex like:
 With these two sets of words we try to sort out what the phrase was trying to
 say.
 
-A BerkeleyDB is used as the backend for the database of words/categories. All
+A TokyoCabinet HDB is used as the backend for the database of words/categories. All
 the non-matched results are saved in the database too so we can hopefully fix
 them.

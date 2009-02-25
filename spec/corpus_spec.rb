@@ -102,4 +102,8 @@ describe Corpus do
     db["saturday"].should == :day
     db["an"].should == :article
   end
+
+  it 'raises an error when it cannot create the database' do
+    lambda { Corpus.new("") }.should raise_error(CorpusError)
+  end
 end
