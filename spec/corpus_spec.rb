@@ -106,4 +106,11 @@ describe Corpus do
   it 'raises an error when it cannot create the database' do
     lambda { Corpus.new("") }.should raise_error(CorpusError)
   end
+
+  it 'has a class method to get the unmatched list of tokens' do
+    tokens = Corpus.unmatched_tokens
+    tokens.size.should > 1
+    tokens["unmatched"].should == 'unmatched afternoon'
+    tokens["bla"].should == "3 bla foo"
+  end
 end

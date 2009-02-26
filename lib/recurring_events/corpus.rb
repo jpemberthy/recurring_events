@@ -56,7 +56,18 @@ class Corpus
     end
   end
 
-  private
+
+  # Returns a hash of tokens that went into the unmatched database.
+  def self.unmatched_tokens
+    result = { }
+    db = Corpus.new("unmatched-#{program_name}.db")
+    db.instance_eval("@db").each do |k,v|
+      result[k] = v
+    end
+    result
+  end
+
+  protected
 
   # Creates a new database using name as the DB filename.
   def create_database           # :nodoc:
