@@ -32,7 +32,7 @@ class Matchers
   def self.clear
     @matchers = []
   end
-  
+
   # Loads a collection of simple but useful matchers.
   def self.load_default_matchers
     @matchers ||= []
@@ -41,7 +41,6 @@ class Matchers
 
     @matchers << SimpleMatcher.new(:recurrency, /\b(every|each)\b/)
     @matchers << SimpleMatcher.new(:recurrency, /\b(day|week)s?\b/)
-
 
     @matchers << SimpleMatcher.new(:day, /[0-3]?[0-9](st|nd|rd|th)/)
     @matchers << SimpleMatcher.new(:number, /\b\d+\b/)

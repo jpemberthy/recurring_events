@@ -10,7 +10,8 @@ post "/text" do
   text = params[:text]
   parser = Recoup.new(text)
   @result = parser.start
-  @unmatched = @result.clone.delete_if { |k,v| [:event, :subject, :time, :recurrency, :day, :name].include?(k) }
+  @others = @result.clone.delete_if { |k,v| [:event, :subject, :time, :recurrency, :day, :name].include?(k) }
+  @to_match = parser.to_match
   haml :text
 end
 

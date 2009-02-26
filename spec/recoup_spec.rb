@@ -38,7 +38,18 @@ describe Recoup do
   end
 
   it 'parses complex sentences' do
-    ret = Recoup.start("Mr. Bart needs a chicken soup every day at 3:00 PM")
+    parser = Recoup.new("Mr. Bart needs a chicken soup every day at 3:00 PM")
+    ret = parser.start
     ret.should == {:article=>["a"], :time=>["3:00", "pm"], :number=>[], :day=>[], :verb=>["needs"], :name=>["bart"], :preposition=>["at"], :recurrency=>["every", "day"], :event=>["chicken", "soup"], :salutation=>["mr"]}
+
+  end
+
+  it 'saves unmatched words in @to_match' do
+    Matchers.register(SimpleMatcher.new(:time, /foo/))
+    p = Recoup.new('3 bla foo') 
+    ret = p.start
+    p.to_match.should == ['bla']
+    p.to_match.should_not include('foo')
+    p.to_match.should_not include('3')
   end
 end

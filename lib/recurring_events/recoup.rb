@@ -26,7 +26,7 @@ class Recoup
   def start                     # :nodoc:
     run_corpus
     run_matchers
-    save_unmatched_words if !@to_match.empty?
+    save_unmatched_words
     @matches
   end
   
@@ -45,15 +45,12 @@ class Recoup
   # Runs the unmatched tokens through the custom matchers and
   # saves the ones it recognizes.
   def run_matchers              # :nodoc:
-    phrase = remove_matched(@processor.original_text.clone.downcase)
+    phrase = remove_matched_words
     matches = Matchers.run(phrase)
-
     matches.each do |match|
       text, category = match
       if text
         @matches[category] << text
-      else
-        @to_match << text
       end
     end
   end
@@ -61,15 +58,20 @@ class Recoup
   # Save all the unmatched tokens to a database. Uses (token : original
   # phrase) pairs. 
   def save_unmatched_words      # :nodoc:
-    db = Corpus.new("unmatched.db")
+    phrase = remove_matched_words
     text = @processor.original_text
-    @to_match.each { |token| db[token] = text }
+    db = Corpus.new("unmatched.db")
+    phrase.split(' ').each do |token|
+      @to_match << token
+      db[token] = text
+    end
     db.close
   end
 
-  # Receives a string and removes all the words in @matched from the it.
-  def remove_matched(string)
-    regexp = @matches.values.flatten.join("|")
+  # Removes all the words in @matched from the original text string.
+  def remove_matched_words
+    string = @processor.original_text.clone.downcase
+    regexp = Regexp.new(@matches.values.flatten.join("\\b|\\b"))
     string.gsub(regexp, '')
   end
 

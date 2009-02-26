@@ -39,9 +39,14 @@
 
   .code
     %p 
-    - @unmatched.each do |k,v|
+    - @others.each do |k,v|
       %span{"class" => "code_key"} 
         = k
       <span>=></span>
       = v.inspect
       %br
+
+  %p
+    %span{"class" => "category_small"} Unmatched
+  .code 
+    = @to_match.inspect.gsub('"','')
