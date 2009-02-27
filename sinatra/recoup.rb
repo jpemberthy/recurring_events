@@ -25,8 +25,6 @@ helpers do
 
   # Salutation (if it exists) plus name (capitalized)
   def subject_name
-    salutation = text_for(:salutation)
-    name       = text_for(:name)
-    "#{salutation} #{name}"
+    "#{text_for(:salutation)} #{text_for(:name)}"
   end
 end

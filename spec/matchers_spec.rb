@@ -86,5 +86,11 @@ describe "Predefined Matchers" do
     ret.should include(["every", :recurrency])
     ret.should include(["days", :recurrency])
   end
+
+  it 'does not modify the original text' do
+    text = 'every morning'
+    Matchers.run(text)
+    text.should == 'every morning'
+  end
 end
 

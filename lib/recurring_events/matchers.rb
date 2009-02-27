@@ -2,7 +2,8 @@ class Matchers
   # Runs a text through the different text matchers. Returns an array of
   # [text, category] if it matches and an empty array if nothing matches. Raises a
   # MatchersError if no matchers were registered.
-  def self.run(text)
+  def self.run(phrase)
+    text = phrase.clone
     @matches = []
     raise MatchersError.new('No matchers registered') if no_matchers?
 
