@@ -60,12 +60,22 @@ class Recoup
   def save_unmatched_words      # :nodoc:
     phrase = remove_matched_words
     text = @processor.original_text
+    tokens = phrase.split(' ')
     db = Corpus.new("unmatched-#{program_name}.db")
-    phrase.split(' ').each do |token|
+    tokens.each do |token|
+      next if matched_token?(token)
+
       @to_match << token
       db[token] = text
     end
     db.close
+  end
+
+  def matched_token?(word)
+    match = Matchers.run(word)
+    if !match.empty? && match.first != word
+      true
+    end
   end
 
   # Removes all the words in @matched from the original text string.

@@ -50,7 +50,7 @@ class Matchers
     @matchers << ComplexMatcher.new(:time, /afternoon/, lambda { "14:00" })
     @matchers << ComplexMatcher.new(:time, /night/, lambda { "20:00" })
   end
-  
+
   protected
   
   def self.no_matchers?

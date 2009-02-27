@@ -58,4 +58,13 @@ describe Recoup do
     p.to_match.should_not include('foo')
     p.to_match.should_not include('3')
   end
+
+  it 'removes the original ComplexMatcher matches from @to_match' do
+    parser = Recoup.new('Daniel needs a biweekly visit in the morning')
+    result = parser.start
+    parser.to_match.should_not include('morning')
+    parser.to_match.should_not include('07:00')
+
+    result[:time].should include('07:00')
+  end
 end
