@@ -51,6 +51,11 @@ class Matchers
     @matchers << ComplexMatcher.new(:time, /night/, lambda { "20:00" })
   end
 
+  # Returns a list of the current available matchers.
+  def self.matchers
+    @matchers
+  end
+
   protected
   
   def self.no_matchers?
