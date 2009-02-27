@@ -75,5 +75,16 @@ describe "Predefined Matchers" do
     Matchers.run("30").should == [["30", :number]]
     Matchers.run("30").should_not == [["Fakedude", :time]]
   end
+
+  it 'includes a complex recurrency matcher' do
+    ret = Matchers.run("every three weeks")
+
+    ret.should include(["every", :recurrency])
+    ret.should include(["weeks", :recurrency])
+
+    ret = Matchers.run("every two days")
+    ret.should include(["every", :recurrency])
+    ret.should include(["days", :recurrency])
+  end
 end
 

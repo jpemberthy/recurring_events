@@ -38,10 +38,16 @@ describe Recoup do
   end
 
   it 'parses complex sentences' do
-    parser = Recoup.new("Mr. Bart needs a chicken soup every day at 3:00 PM")
-    ret = parser.start
+    ret = Recoup.start("Mr. Bart needs a chicken soup every day at 3:00 PM")
     ret.should == {:article=>["a"], :time=>["3:00", "pm"], :number=>[], :day=>[], :verb=>["needs"], :name=>["bart"], :preposition=>["at"], :recurrency=>["every", "day"], :event=>["chicken", "soup"], :salutation=>["mr"]}
 
+    ret = Recoup.start("Every three weeks")
+    ret[:recurrency].should include("every")
+    ret[:recurrency].should include("three")
+    ret[:recurrency].should include("weeks")
+
+    ret = Recoup.start("biweekly meetings")
+    ret[:recurrency].should include("biweekly")
   end
 
   it 'saves unmatched words in @to_match' do
