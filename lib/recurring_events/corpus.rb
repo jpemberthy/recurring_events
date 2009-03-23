@@ -25,13 +25,17 @@ class Corpus
 
   # Inserts key:value into the database.
   def insert(key, value=nil)
-    if key.kind_of?(Array)
-      key, value =  key
+     if key.kind_of?(Array)
+       key, value =  key
+     end
+     if key.nil? || value.nil?
+       raise CorpusError.new("Invalid key/value: #{key} - #{value}")
+     end
+
+    ret = @db.put(key.to_s.downcase ,value.to_s.downcase)
+    if !ret
+       raise CorpusError.new("#{@db.errmsg}: #{key} - #{value}")
     end
-    if key.nil? || value.nil?
-      raise CorpusError.new("Invalid key/value: #{key} - #{value}")
-    end
-    @db[key.to_s.downcase] = value.to_s.downcase
   end
   alias_method :<<, :insert
   alias_method :[]=, :insert

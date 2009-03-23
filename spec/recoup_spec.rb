@@ -23,8 +23,7 @@ describe Recoup do
   end
   
   it 'saves away the unmatched words' do
-    parser = Recoup.new('unmatched afternoon')
-    ret = parser.start
+    ret = Recoup.start('unmatched afternoon')
     db = Corpus.new("unmatched-spec.db")
     db["unmatched"].should == :"unmatched afternoon"
   end
