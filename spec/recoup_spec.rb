@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 describe Recoup do
   before :each do
     Matchers.clear
-    @parser = Recoup.new('afternoon at 3')
+    @parser = Recoup.new('monday at 3')
     matcher = ComplexMatcher.new(:number, /\d/, Proc.new { |n| n.strip })
     Matchers.register(matcher)
   end
@@ -14,19 +14,18 @@ describe Recoup do
 
   it 'uses the corpus to match tokens' do
     @parser.start
-    @parser.matches[:time].should include('afternoon')
+    @parser.matches[:day].should include('monday')
   end
 
   it 'uses the matchers to match the extra tokens' do
     @parser.start
-    @parser.matches[:time].should include('afternoon')
     @parser.matches[:number].should include('3')
   end
   
   it 'saves away the unmatched words' do
     parser = Recoup.new('unmatched afternoon')
-    parser.start
-    db = Corpus.new("unmatched.db")
+    ret = parser.start
+    db = Corpus.new("unmatched-spec.db")
     db["unmatched"].should == :"unmatched afternoon"
   end
 
@@ -34,7 +33,7 @@ describe Recoup do
     ret = @parser.start
     ret.should be_kind_of(Hash)
     ret.should include(:preposition)
-    ret.should include(:time)
+    ret.should include(:day)
   end
 
   it 'parses complex sentences' do

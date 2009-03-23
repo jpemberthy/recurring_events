@@ -59,10 +59,9 @@ class Recoup
   def save_unmatched_words      # :nodoc:
     tokens = phrase_without_matches.split(' ')
     unmatched_db = Corpus.new("unmatched-#{program_name}.db")
-
     tokens.each do |token|
       if !complex_token_matches?(token) # token was not transformed earlier
-        @to_match << token      
+        @to_match << token
         unmatched_db[token] = @processor.original_text
       end
     end
