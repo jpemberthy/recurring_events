@@ -22,3 +22,8 @@ say.
 A TokyoCabinet HDB is used as the backend for the database of words/categories. All
 the non-matched results are saved in the database too so we can hopefully fix
 them.
+
+Todo
+----
+* Parse complex phrases containing "and" or "except".
+* Handle custom events.
