@@ -7,7 +7,7 @@ describe Recoup do
     matcher = ComplexMatcher.new(:number, /\d/, Proc.new { |n| n.strip })
     Matchers.register(matcher)
   end
-  
+
   it 'has a class method alias for a fast start' do
     c = Recoup.start('some text').should == Recoup.new('some text').start
   end
@@ -26,6 +26,7 @@ describe Recoup do
     ret = Recoup.start('unmatched afternoon')
     db = Corpus.new("unmatched-spec.db")
     db["unmatched"].should == :"unmatched afternoon"
+    db.close
   end
 
   it 'returns a hash with the found properties' do
