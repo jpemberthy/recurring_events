@@ -74,14 +74,14 @@ describe "Custom Events Parser" do
   it "parses custom events" do
     parser = Recoup.new("Phil has a headache tomorrow at 10 am")
     ret = parser.start
-    ret[:event].should == "headache"
+    ret[:event].should == ["headache"]
     ret[:guessing].should == true
   end
 
   it "parses multi-word events" do
     parser = Recoup.new("Phil has a bad fucking headache tomorrow at 10 am")
     ret = parser.start
-    ret[:event].should == "bad fucking headache"
+    ret[:event].should == ["bad", "fucking", "headache"]
     ret[:guessing].should == true
   end
 end
