@@ -6,7 +6,7 @@ require File.dirname(__FILE__) + "/lib/recurring_events"
 
 desc "Run all the specs"
 Spec::Rake::SpecTask.new('spec') do |t|
-  t.spec_files = FileList['spec/**/*spec.rb']
+  t.spec_files = FileList['spec/']
 end
 
 desc "Generate the documentation using YARD"

@@ -38,8 +38,7 @@ class Matchers
   def self.load_default_matchers
     @matchers ||= []
     @matchers << SimpleMatcher.new(:time, /\b((2[0-3])|(0|1)?\d)(:[0-5][0-9])?(am|pm)?\b/)
-    @matchers << SimpleMatcher.new(:time, /([a]|p)\.?m\.?/)
-    @matchers << SimpleMatcher.new(:time, /([a]|p)\.?m\.?/)
+    @matchers << SimpleMatcher.new(:time, /(a|p)\.?m\.?/)
 
     @matchers << SimpleMatcher.new(:recurrency, /\b(every|each)\b/)
     @matchers << SimpleMatcher.new(:recurrency, /\b(day|week)s?\b/)
