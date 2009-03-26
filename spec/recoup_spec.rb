@@ -17,11 +17,6 @@ describe Recoup do
     @parser.matches[:day].should include('monday')
   end
 
-  it 'uses the matchers to match the extra tokens' do
-    @parser.start
-    @parser.matches[:number].should include('3')
-  end
-  
   it 'saves away the unmatched words' do
     ret = Recoup.start('unmatched afternoon')
     db = Corpus.new("unmatched-spec.db")

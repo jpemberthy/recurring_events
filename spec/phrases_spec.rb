@@ -30,5 +30,19 @@ describe "Test Phrases" do
                           :article=>["a"],
                           :verb=>["needs"]
     }
+
+    parser = Recoup.new('Bart needs an injection every week at 10 AM')
+    result = parser.start
+    result.should  == { :day=>[],
+                          :event=>["injection"],
+                          :number=>[],
+                          :name=>["bart"],
+                          :salutation=>[],
+                          :preposition=>["at"],
+                          :recurrency=>["every", "week"],
+                          :time=>["10", "am"],
+                          :article=>["an"],
+                          :verb=>["needs"]
+    }
   end
 end
