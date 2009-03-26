@@ -76,7 +76,8 @@ class Recoup
   # Removes all the words in @matched from the original text string.
   def phrase_without_matches      # :nodoc:
     string = @processor.original_text.clone.downcase
-    regexp = Regexp.new(@matches.values.flatten.join("\\b|\\b"))
+    # surround each word by \b and turn that into a regex
+    regexp = Regexp.new("\\b#{@matches.values.flatten.join("\\b|\\b")}\\b")
     string.gsub(regexp, '')
   end
 

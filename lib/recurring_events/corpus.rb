@@ -46,6 +46,11 @@ class Corpus
   end
   alias_method :reopen, :open
 
+  # Removes a value from the database
+  def delete(key)
+    @db.delete(key.to_s.downcase)
+  end
+
   # Close the database.
   def close
     @db.close

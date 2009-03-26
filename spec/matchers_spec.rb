@@ -82,6 +82,12 @@ describe "Predefined Matchers" do
     ret.should include(["days", :recurrency])
   end
 
+  it "includes a simple matcher for am/pm" do
+    ret = Matchers.run("am pm")
+    ret.should include(["am", :time])
+    ret.should include(["pm", :time])
+  end
+
   it 'does not modify the original text' do
     text = 'every morning'
     Matchers.run(text)
