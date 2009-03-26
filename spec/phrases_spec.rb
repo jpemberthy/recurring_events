@@ -31,6 +31,8 @@ describe "Test Phrases" do
                           :verb=>["needs"]
     }
 
+    parser.to_match.should be_empty
+
     parser = Recoup.new('Bart needs an injection every week at 10 AM')
     result = parser.start
     result.should  == { :day=>[],
@@ -45,6 +47,8 @@ describe "Test Phrases" do
                           :verb=>["needs"]
     }
 
+    parser.to_match.should be_empty
+
     parser = Recoup.new("andre needs a chicken soup every monday at 10 am")
     result = parser.start
     result.should  == { :day=>["monday"],
@@ -58,5 +62,7 @@ describe "Test Phrases" do
                           :article=>["a"],
                           :verb=>["needs"]
     }
+
+    parser.to_match.should be_empty
   end
 end

@@ -108,9 +108,9 @@ describe Corpus do
   end
 
   it 'has a class method to get the unmatched list of tokens' do
+    Recoup.start("unmatched")
     tokens = Corpus.unmatched_tokens
-    tokens.size.should > 1
-    tokens["unmatched"].should == 'unmatched afternoon'
-    tokens["bla"].should == "3 bla foo"
+    tokens.size.should > 0
+    tokens["unmatched"].should == 'unmatched'
   end
 end

@@ -73,6 +73,7 @@ class Corpus
     db.instance_eval("@db").each do |k,v|
       result[k] = v
     end
+    db.close
     result
   end
 

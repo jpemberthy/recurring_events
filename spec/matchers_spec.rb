@@ -6,6 +6,7 @@ describe Matchers do
   end
   
   it 'allows the registration of new matchers' do
+    Matchers.clear
     Matchers.register(@matcher)
     Matchers.instance_variable_get(:@matchers).size.should == 1
   end
