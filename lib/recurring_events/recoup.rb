@@ -72,7 +72,7 @@ class Recoup
   # If no event was found then try to join the unmatched words and set the
   # "guessing" flag to true
   def find_event
-    @matches[:event] = @to_match.join(" ")
+    @matches[:event] = @to_match
     @matches[:guessing] = true
   end
 

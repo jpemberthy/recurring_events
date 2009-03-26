@@ -1,49 +1,51 @@
 %title Recurring Event Parser
 %link{"rel" => "stylesheet", "type" => "text/css", "href" => "style.css"}
-  %div{"class" => "text bold spaced"}
+  %div{:class => "text bold spaced"}
   .title 
     Recoup
 
   %form{"action" => "/text", "method" => "post"}
-    %input{ "type" => "text", "class" => "huge", "name" => "text", "value" => params[:text] }
+    %input{ "type" => "text", :class => "huge", "name" => "text", "value" => params[:text] }
 
+  - if @result[:guessing]
+    =warning_div(@result[:event])
   %p
-    %span{"class" => "category"} Event
-    %span{"class" => "category_text"}
+    %span{:class => "category"} Event
+    %span{:class => "category_text"}
       =text_for(:event)
 
   %p
-    %span{"class" => "category"} Subject
-    %span{"class" => "category_text"}
+    %span{:class => "category"} Subject
+    %span{:class => "category_text"}
       =subject_name
 
   %p
-    %span{"class" => "category"} Date
-    %span{"class" => "category_text"} 
+    %span{:class => "category"} Date
+    %span{:class => "category_text"} 
       =text_for(:day)
   %p
-    %span{"class" => "category"} Time
-    %span{"class" => "category_text"} 
+    %span{:class => "category"} Time
+    %span{:class => "category_text"} 
       =text_for(:time)
 
   %p
-    %span{"class" => "category_small"} Recurrency
-    %span{"class" => "category_text_small"} 
+    %span{:class => "category_small"} Recurrency
+    %span{:class => "category_text_small"} 
       =text_for(:recurrency)
 
   %p
-    %span{"class" => "category_small"} Other
+    %span{:class => "category_small"} Other
 
   .code
     %p 
     - @others.each do |k,v|
-      %span{"class" => "code_key"} 
+      %span{:class => "code_key"} 
         = k
       <span>=></span>
       = v.inspect
       %br
 
   %p
-    %span{"class" => "category_small"} Unmatched
+    %span{:class => "category_small"} Unmatched
   .code 
     = @to_match.inspect.gsub('"','')

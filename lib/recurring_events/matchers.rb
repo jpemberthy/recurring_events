@@ -49,6 +49,11 @@ class Matchers
     @matchers << ComplexMatcher.new(:time, /\bnoon\b/,      lambda { "12:00" })
     @matchers << ComplexMatcher.new(:time, /afternoon/, lambda { "14:00" })
     @matchers << ComplexMatcher.new(:time, /night/, lambda { "20:00" })
+
+
+    # Change tomorrow for the day name
+    @matchers << ComplexMatcher.new(:day, /\btomorrow\b/, 
+                                    lambda { (Time.now + 3600 * 24).strftime("%A") })
   end
 
   # Returns a list of the current available matchers.

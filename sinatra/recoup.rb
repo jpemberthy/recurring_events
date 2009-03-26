@@ -27,4 +27,8 @@ helpers do
   def subject_name
     "#{text_for(:salutation)} #{text_for(:name)}"
   end
+
+  def warning_div(event)
+    "<p><span class='warning'>Warning:</span> The event #{text_for(event)} was not found in the database so we're guessing. Click <a href='foo.com' class='warning'>here</a> if my guess was correct.</p>"
+  end
 end

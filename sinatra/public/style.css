@@ -48,6 +48,8 @@ div.code {
 
 span.code_key {     color: #6f6f6f; }
 
+span.warning { color: #FFC100; }
+a.warning { color: #dcdccc; text-decoration: underline;}
 .category_text {
     font-size: 3em;
     margin-left: 15px;
