@@ -24,6 +24,7 @@ visited: verb
 should: verb
 be: verb
 requires: verb
+has: verb
 
 medical: event
 play: event

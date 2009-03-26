@@ -27,6 +27,7 @@ class Recoup
     run_corpus
     run_matchers
     save_unmatched_words
+    find_event if @matches[:event].empty?
     @matches
   end
   
@@ -68,6 +69,13 @@ class Recoup
     unmatched_db.close
   end
 
+  # If no event was found then try to join the unmatched words and set the
+  # "guessing" flag to true
+  def find_event
+    @matches[:event] = @to_match.join(" ")
+    @matches[:guessing] = true
+  end
+
   # Returns true if the token matches against a ComplexMatcher and nil otherwise.
   def complex_token_matches?(token) # :nodoc:
     Matchers.matchers.any? {|matcher| matcher.matches?(token) }
@@ -88,6 +96,7 @@ class Recoup
      :article, :day, :verb, :name, :number].each do |category|
       @matches[category] = []
     end
+    @matches[:guessing] = false
   end
 
   # Initialization routine, sets up the corpus and the matchers.

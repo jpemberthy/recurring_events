@@ -28,7 +28,8 @@ describe "Test Phrases" do
                           :recurrency=>["every", "day"],
                           :time=>["3:00", "pm"],
                           :article=>["a"],
-                          :verb=>["needs"]
+                          :verb=>["needs"],
+                          :guessing => false
     }
 
     parser.to_match.should be_empty
@@ -44,7 +45,8 @@ describe "Test Phrases" do
                           :recurrency=>["every", "week"],
                           :time=>["10", "am"],
                           :article=>["an"],
-                          :verb=>["needs"]
+                          :verb=>["needs"],
+                          :guessing => false
     }
 
     parser.to_match.should be_empty
@@ -60,9 +62,26 @@ describe "Test Phrases" do
                           :recurrency=>["every"],
                           :time=>["10", "am"],
                           :article=>["a"],
-                          :verb=>["needs"]
+                          :verb=>["needs"],
+                          :guessing => false
     }
 
     parser.to_match.should be_empty
+  end
+end
+
+describe "Custom Events Parser" do
+  it "parses custom events" do
+    parser = Recoup.new("Phil has a headache tomorrow at 10 am")
+    ret = parser.start
+    ret[:event].should == "headache"
+    ret[:guessing].should == true
+  end
+
+  it "parses multi-word events" do
+    parser = Recoup.new("Phil has a bad fucking headache tomorrow at 10 am")
+    ret = parser.start
+    ret[:event].should == "bad fucking headache"
+    ret[:guessing].should == true
   end
 end
