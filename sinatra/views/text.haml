@@ -5,7 +5,7 @@
 %body
   =js_link_helper("Here")
   %div{:class => "text bold spaced"}
-  .titl
+  .title
     Recoup
 
   %form{"action" => "/text", "method" => "post"}
@@ -52,10 +52,10 @@
     %p
       - @others.each do |k,v|
         %span{:class => "code_key"}
-          = k
-          <span>=></span>
-          = v.inspect
-          %br
+        = k
+        <span>=></span>
+        = v.inspect
+        %br
 
   %p
     %span{:class => "category_small"} Unmatched
