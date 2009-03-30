@@ -1,7 +1,10 @@
 %title Recurring Event Parser
-%link{"rel" => "stylesheet", "type" => "text/css", "href" => "style.css"}
+%html
+  %link{"rel" => "stylesheet", "type" => "text/css", "href" => "style.css"}
+  %script{:type => "text/javascript", :src => "jquery.js"}
+%body
   %div{:class => "text bold spaced"}
-  .title 
+  .titl
     Recoup
 
   %form{"action" => "/text", "method" => "post"}
@@ -9,10 +12,10 @@
 
   - if @result[:guessing]
     =warning_div(@result[:event])
-  %p
-    %span{:class => "category"} Event
-    %span{:class => "category_text"}
-      =text_for(:event)
+    %p
+      %span{:class => "category"} Event
+      %span{:class => "category_text"}
+        =text_for(:event)
 
   %p
     %span{:class => "category"} Subject
@@ -21,31 +24,32 @@
 
   %p
     %span{:class => "category"} Date
-    %span{:class => "category_text"} 
+    %span{:class => "category_text"}
       =text_for(:day)
+
   %p
     %span{:class => "category"} Time
-    %span{:class => "category_text"} 
+    %span{:class => "category_text"}
       =text_for(:time)
 
   %p
     %span{:class => "category_small"} Recurrency
-    %span{:class => "category_text_small"} 
+    %span{:class => "category_text_small"}
       =text_for(:recurrency)
 
   %p
     %span{:class => "category_small"} Other
 
   .code
-    %p 
-    - @others.each do |k,v|
-      %span{:class => "code_key"} 
-        = k
-      <span>=></span>
-      = v.inspect
-      %br
+    %p
+      - @others.each do |k,v|
+        %span{:class => "code_key"}
+          = k
+          <span>=></span>
+          = v.inspect
+          %br
 
   %p
     %span{:class => "category_small"} Unmatched
-  .code 
-    = @to_match.inspect.gsub('"','')
+    .code
+      = @to_match.inspect.gsub('"','')
