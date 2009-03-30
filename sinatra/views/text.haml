@@ -3,6 +3,7 @@
   %link{"rel" => "stylesheet", "type" => "text/css", "href" => "style.css"}
   %script{:type => "text/javascript", :src => "jquery.js"}
 %body
+  =js_link_helper("Here")
   %div{:class => "text bold spaced"}
   .titl
     Recoup
@@ -12,10 +13,17 @@
 
   - if @result[:guessing]
     =warning_div(@result[:event])
+    #hidden_div
+      Please help us categorize the token: 
+      %span{:class => "warning"}
+        =@result[:event]
+      =events_helper
+      
     %p
       %span{:class => "category"} Event
       %span{:class => "category_text"}
         =text_for(:event)
+
 
   %p
     %span{:class => "category"} Subject

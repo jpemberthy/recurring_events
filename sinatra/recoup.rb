@@ -29,6 +29,26 @@ helpers do
   end
 
   def warning_div(event)
-    "<p><span class='warning'>Warning:</span> The event #{text_for(event)} was not found in the database so we're guessing. Click <a href='foo.com' class='warning'>here</a> if my guess was correct.</p>"
+    "<p><span class='warning'>Warning:</span> The event #{text_for(event)} was not found in the database so we're guessing.</p>"
+  end
+
+  def js_link_helper(text)
+  <<-eos
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#hidden_div').before('<a href=\"#\" id=\"toggle_link\" class="warning">More information</a>');
+    $('#hidden_div').hide();
+    $('a#toggle_link').click(function() {
+        $('#hidden_div').toggle('normal');
+        return false;
+    });
+});
+</script>
+eos
+  end
+
+  # TODO: Show the types of events to categorize
+  def events_helper
+    ""
   end
 end
