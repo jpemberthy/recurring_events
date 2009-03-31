@@ -15,6 +15,10 @@ post "/text" do
   haml :text
 end
 
+post "/register_word" do
+  
+end
+
 helpers do
   # Join all the fields with spaces and capitalize the text so it looks nice
   # on the output.
@@ -47,8 +51,13 @@ $(document).ready(function() {
 eos
   end
 
-  # TODO: Show the types of events to categorize
-  def events_helper
-    ""
+  def category_link(text)
+    <<-eos
+    <form action="/register_word" method="POST">
+      <input type="hidden" name="text" value="#{ @result[:event] }">
+      <input type="hidden" name="category" value="#{text.downcase.to_sym}">
+      <a href="#" onclick="parentNode.submit(); return false;">#{text}</a>
+     </form>
+    eos
   end
 end

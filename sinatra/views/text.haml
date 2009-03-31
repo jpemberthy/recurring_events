@@ -14,10 +14,15 @@
   - if @result[:guessing]
     =warning_div(@result[:event])
     #hidden_div
-      Please help us categorize the token: 
+      Please help us categorize the token:
       %span{:class => "warning"}
         =@result[:event]
-      =events_helper
+      =category_link("Event")
+      =category_link("Name")
+      =category_link("Date")
+      =category_link("Time")
+      =category_link("Recurrency")
+      =category_link("Ignore")
       
     %p
       %span{:class => "category"} Event
