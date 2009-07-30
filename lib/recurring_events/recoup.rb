@@ -31,6 +31,11 @@ class Recoup
     @matches
   end
   
+  def get_answer
+    phrases_matcher = PhrasesMatcher.new(@matches)
+    phrases_matcher.answer
+  end
+  
   protected
   
   # Runs the list of tokens through the corpus and saves away the ones it

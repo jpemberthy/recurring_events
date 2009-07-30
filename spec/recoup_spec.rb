@@ -37,7 +37,8 @@ describe Recoup do
       :article => ["a"], :time => ["3:00", "pm"], :number => [],
       :day => [], :verb => ["needs"], :name => ["bart"], :preposition => ["at"],
       :recurrency => ["every", "day"], :event => ["chicken", "soup"],
-      :salutation => ["mr"], :guessing => false
+      :salutation => ["mr"], :guessing => false,
+      :interrogation => []
     }
 
     ret = Recoup.start("Every three weeks")
@@ -66,4 +67,14 @@ describe Recoup do
 
     result[:time].should include('07:00')
   end
+  
+  it "should find an answer for the given text." do
+    parser1 = Recoup.new("hey guys what is the menu today?")
+    parser2 = Recoup.new("what do you have today in the menu?")
+    result1 = parser1.start
+    result2 = parser2.start
+    parser1.get_answer.should == parser2.get_answer
+    parser1.get_answer.should == "chineese food"
+  end
+  
 end
