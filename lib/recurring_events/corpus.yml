@@ -53,6 +53,15 @@ vacuuming: event
 chicken: event
 soup: event
 
+menu: event
+
+who: interrogation
+what: interrogation
+when: interrogation
+where: interrogation
+why: interrogation
+how: interrogation
+
 fakedude: name
 fakeworth: name
 
