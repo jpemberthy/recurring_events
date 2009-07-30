@@ -25,6 +25,7 @@ should: verb
 be: verb
 requires: verb
 has: verb
+is: verb
 
 medical: event
 play: event
