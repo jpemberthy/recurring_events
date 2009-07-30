@@ -13,7 +13,8 @@ describe "Test Phrases" do
                  :name=>["daniel"], 
                  :verb=>["needs"], 
                  :event=>["visit"], 
-                 :salutation=>[]
+                 :salutation=>[],
+                 :interrogation=>[]
     }
     parser.to_match.should be_empty
 
@@ -29,9 +30,11 @@ describe "Test Phrases" do
                           :time=>["3:00", "pm"],
                           :article=>["a"],
                           :verb=>["needs"],
+                          :interrogation => [],
                           :guessing => false
     }
-
+    
+    
     parser.to_match.should be_empty
 
     parser = Recoup.new('Bart needs an injection every week at 10 AM')
@@ -46,6 +49,7 @@ describe "Test Phrases" do
                           :time=>["10", "am"],
                           :article=>["an"],
                           :verb=>["needs"],
+                          :interrogation => [],
                           :guessing => false
     }
 
@@ -63,10 +67,30 @@ describe "Test Phrases" do
                           :time=>["10", "am"],
                           :article=>["a"],
                           :verb=>["needs"],
+                          :interrogation => [],
                           :guessing => false
     }
 
     parser.to_match.should be_empty
+    
+    parser = Recoup.new("What is the menu today?")
+    result = parser.start
+    result.should  == { :day=>[Time.now.strftime("%A")],
+                          :event=>["menu"],
+                          :number=>[],
+                          :name=>[],
+                          :salutation=>[],
+                          :preposition=>["the"],
+                          :recurrency=>[],
+                          :time=>[],
+                          :article=>[],
+                          :verb=>["is"],
+                          :interrogation => ["what"],
+                          :guessing => false
+    }
+
+    parser.to_match.should be_empty
+    
   end
 end
 
