@@ -16,7 +16,11 @@ post "/text" do
 end
 
 post "/register_word" do
-  
+  token = params[:text]
+  category = params[:category]
+  db = Corpus.new
+  db.insert(token, category)
+  redirect '/'
 end
 
 helpers do
