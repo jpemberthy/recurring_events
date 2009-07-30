@@ -93,7 +93,7 @@ class Recoup
   # Creates the initial keys for every category in @matches
   def setup_categories          # :nodoc:
     [:event, :time, :salutation, :recurrency, :preposition,
-     :article, :day, :verb, :name, :number].each do |category|
+     :article, :day, :verb, :name, :number, :interrogation].each do |category|
       @matches[category] = []
     end
     @matches[:guessing] = false
