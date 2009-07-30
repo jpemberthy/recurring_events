@@ -7,6 +7,7 @@ require 'recurring_events/simple_matcher'
 require 'recurring_events/complex_matcher'
 require 'recurring_events/matchers'
 require 'recurring_events/recoup'
+require 'recurring_events/phrase_set'
 
 def program_name
   $0.split('/').last
