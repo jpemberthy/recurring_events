@@ -1,6 +1,6 @@
 class PhraseSet
   
-  PHRASES = [{'0' => %w{what menu today}}, {'1' => %{when next party}}]
+  PHRASES = [{'0' => %w{what menu today}}, {'1' => %w{when next party}}]
 
   
   def self.message_for(phrase)
