@@ -77,4 +77,10 @@ describe Recoup do
     parser1.get_answer.should == "chineese food"
   end
   
+  it "should notify a question without answer" do
+    parser1 = Recoup.new("Are you Skynet?")
+    result = parser1.start
+    parser1.get_answer.should == "Kacatua doesn't know the answer!!"
+  end
+  
 end

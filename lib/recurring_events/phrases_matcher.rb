@@ -14,7 +14,7 @@ class PhrasesMatcher
   def heavier_weight(weights)
     heavier_id = 0
     heavier = 0
-    weights.each{|k,v| v > heavier ? (heavier_id = k; heavier = v) : continue }
+    weights.each{|k,v| v > heavier ? (heavier_id = k; heavier = v) : "" }
     heavier_id
   end
   
@@ -27,7 +27,7 @@ class PhrasesMatcher
           phrases.each{|phrase|
             phrase.each{|pk, pv|
               pv.collect{|keyword|
-                matched_weights[pk] += 1 if /keyword/ =~ token
+                matched_weights[pk] += 1 if /#{keyword}/ =~ token
               }
             }
           }
