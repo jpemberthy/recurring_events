@@ -11,7 +11,14 @@ class Corpus
     FileUtils.mkdir_p(default_path) unless File.exists?(default_path)
     create_database
   end
-
+  
+  # If there's a db for the given account_id, reopens the database.
+  # If the database doesn't exist, creates a new db with the given account_id.
+  def self.find_or_create_by_account_id(account_id, file="corpus.db")
+    db_file = account_id + '_' + file
+    self.new(db_file)
+  end
+  
   # Gets the value associated with key.
   def get(key)
     val = @db[key.to_s.downcase]
@@ -44,7 +51,7 @@ class Corpus
   def open
     create_database
   end
-  alias_method :reopen, :open
+  alias_method :reopen_database, :open
 
   # Removes a value from the database
   def delete(key)
@@ -92,7 +99,7 @@ class Corpus
   end
 
   def default_path              # :nodoc:
-    File.join(File.dirname(__FILE__), 'db')
+    File.join(File.dirname(__FILE__), 'db', 'accounts')
   end
 end
 

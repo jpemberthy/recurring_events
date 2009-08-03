@@ -90,8 +90,8 @@ describe Corpus do
     @db[:test].should == :bla
   end
 
-  it 'defaults the database file to ./db/corpus.db' do
-    expected = File.join(File.dirname(__FILE__), '..', 'lib', 'recurring_events', 'db')
+  it 'defaults the database file to ./db/accounts/corpus.db' do
+    expected = File.join(File.dirname(__FILE__), '..', 'lib', 'recurring_events', 'db', 'accounts')
     Corpus.new('db_test.db').send(:default_path).should == expected
   end
 
@@ -107,10 +107,25 @@ describe Corpus do
     lambda { Corpus.new("") }.should raise_error(CorpusError)
   end
 
-  it 'has a class method to get the unmatched list of tokens' do
-    Recoup.start("unmatched")
-    tokens = Corpus.unmatched_tokens
-    tokens.size.should > 0
-    tokens["unmatched"].should == 'unmatched'
+end
+
+describe Corpus, ".create_or_find_by_account_id" do
+  
+  it "finds an existing database" do
+    @db = Corpus.new("1_corpus_test.db")
+    @db["key1"] = "val1"
+    Corpus.find_or_create_by_account_id("1", "corpus_test.db")["key1"].should == :val1
   end
+  
+  it "should create a database if it doesn't exist yet" do
+    @db = Corpus.find_or_create_by_account_id("1", "corpus_test.db")
+    @db["key1"] = "val1"
+    @db.get(:key1).should == :val1
+  end
+  
+  after(:all) do
+    @db.close
+    File.unlink(@db.path)
+  end
+  
 end
